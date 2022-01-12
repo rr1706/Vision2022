@@ -4,13 +4,13 @@ project(
 )
 
 opencv = dependency('opencv4')
-# Can't find a way to include poco or plain asio using cmake/pkg-config
-poconet = dependency('Poco', method: 'cmake', modules: ['Poco::Net'])
+poconet_linker_flags = '-lPocoNet -lPocoFoundation' # TODO: consider asio
 
 program = executable(
     'vision',
     ['src/Main.cpp'],
-    dependencies: opencv
+    dependencies: opencv,
+    link_args: poconet_linker_flags
 )
 
 test('basic', program)
