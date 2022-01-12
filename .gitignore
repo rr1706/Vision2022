@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+builddir/
+.clangd/
+
 # Compiled Object files
 *.slo
 *.lo

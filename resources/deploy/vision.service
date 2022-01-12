@@ -1,0 +1,11 @@
+[Unit]
+Description=Ratchet Rockers Vision Solution
+BindsTo=dev-video0-device
+After=dev-video0.device
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/vision
+
+[Install]
+WantedBy=multi-user.target
