@@ -1,16 +1,20 @@
 project(
     'Vision2022',
-    'cpp'
+    'cpp',
+    version: '0.0.2',
+    default_options: ['cpp_std=c++11']
 )
 
 opencv = dependency('opencv4')
-poconet_linker_flags = '-lPocoNet -lPocoFoundation' # TODO: consider asio
+poco = dependency('Poco', method: 'cmake', modules: ['Poco::Net', 'Poco::Foundation'])
 
 program = executable(
     'vision',
     ['src/Main.cpp'],
-    dependencies: opencv,
-    link_args: poconet_linker_flags
+    dependencies: [opencv, poco],
 )
 
 test('basic', program)
+
+#/usr/share/cmake_modules/cmake/Modules/FindPoco.cmake
+#export CMAKE_MODULE_PATH="$CMAKE_MODULE_PATH:/usr/share/cmake_modules/cmake/Modules/FindPoco.cmake
