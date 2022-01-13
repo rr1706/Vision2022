@@ -5,13 +5,16 @@ project(
     default_options: ['cpp_std=c++11']
 )
 
+cpp = meson.get_compiler('cpp')
+
 opencv = dependency('opencv4')
-poco = dependency('Poco', method: 'cmake', modules: ['Poco::Net', 'Poco::Foundation'])
+#poco = dependency('Poco', method: 'cmake', modules: ['Poco::Net', 'Poco::Foundation'])
+poco = cpp.find_library('PocoNet')
 
 program = executable(
     'vision',
     ['src/Main.cpp'],
-    dependencies: [opencv, poco],
+    dependencies: [opencv, poco]
 )
 
 test('basic', program)
