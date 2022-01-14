@@ -1,28 +1,34 @@
 #include "opencv2/core/mat.hpp"
 #include "opencv2/videoio.hpp"
+
 #include <Poco/Types.h>
 
 namespace frc1706 {
     class BallTracker {
         public:
-            // which to use...
-            BallTracker(cv::Mat input);
-            BallTracker(cv::VideoCapture input);
+            BallTracker(const cv::VideoCapture &cap, bool broadcast = true);
             virtual ~BallTracker();
 
             /**
+             * @brief process camera feed and return the cv::Mat 
              * @return a cv::Mat that is the final processed image/cv::Mat 
              */
             cv::Mat process();
-            
+
             /**
-             * @return an int that is the return code
+             * @brief runs process() then uses the resulting cv::Mat to pull data,
+             *        broadcast image aswell if it is enabled.
+             * @return an int that is the return code of that frame
              */
             int run();
-
             
-
         private:
-            cv::Mat _base;
+            /**
+             * 
+             */
+            void _broadcast(const cv::Mat &frame);
+
+            bool _enable_broadcast;
+            cv::VideoCapture _capture_device;
     };
 };
