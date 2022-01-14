@@ -7,7 +7,7 @@ After=dev-video0.device
 Type=simple
 User=frc
 Group=admin
-ExecStart=/usr/local/bin/vision
+ExecStart=/home/frc/frc/vision
 TimeoutStartSec=0
 RemainAfterExit=yes
 
