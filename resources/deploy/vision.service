@@ -5,7 +5,11 @@ After=dev-video0.device
 
 [Service]
 Type=simple
+User=frc
+Group=admin
 ExecStart=/usr/local/bin/vision
+TimeoutStartSec=0
+RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

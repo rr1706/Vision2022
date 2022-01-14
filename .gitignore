@@ -4,6 +4,7 @@
 builddir/
 .clangd/
 compile_commands.json
+.cache/
 
 # Compiled Object files
 *.slo
