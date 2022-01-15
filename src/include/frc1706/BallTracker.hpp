@@ -1,7 +1,7 @@
 #include "opencv2/core/mat.hpp"
 #include "opencv2/videoio.hpp"
 
-#include <Poco/Types.h>
+#include <future>
 
 namespace frc1706 {
     class BallTracker {
@@ -10,7 +10,7 @@ namespace frc1706 {
             virtual ~BallTracker();
 
             /**
-             * @brief process camera feed and return the cv::Mat 
+             * @brief process the current frame then return it as a cv::Mat 
              * @return a cv::Mat that is the final processed image/cv::Mat 
              */
             cv::Mat process();
@@ -18,23 +18,35 @@ namespace frc1706 {
             /**
              * @brief runs process() then uses the resulting cv::Mat to pull data,
              *        broadcast image aswell if it is enabled.
-             * @return an int that is the return code of that frame
              */
-            int run();
+            void run();
             
             /**
-             * TODO
+             * @brief getter method for _current_frame
+             * @return The current cv::Mat that is being processed
              */
             cv::Mat getCurrentFrame();
-
+        
         private:
             /**
              * TODO 
              */
             void _broadcast(const cv::Mat &frame);
+            
+            /**
+             * @brief internal static method for run(), allows it to be run async
+             */
+            static void _run(BallTracker* self);
 
-            bool _enable_broadcast;
+            // Initalize async task in class so it won't go out of scope later
+            std::future<void> _task;
+            // Current process frame
             cv::Mat _current_frame;
+            // mutex for above
+            std::mutex _current_frame_mutex;
+            // Capture device 
             cv::VideoCapture _capture_device;
+            // Should data be sent over the network
+            bool _enable_broadcast;
     };
 };

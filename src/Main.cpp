@@ -6,6 +6,7 @@
 #include "opencv2/videoio.hpp"
 
 #include <iostream>
+#include <thread>
 
 using namespace frc1706;
 
@@ -21,11 +22,11 @@ int main() {
     ball_cam.run();
     //tape_cam.run();
     
-    cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
-    //cv::imshow("Ball Camera", tape_cam.getCurrentFrame());
-        
     // Hold until esc key is pressed 
     while(true) {
+        cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
+        //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
+        
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
     }
