@@ -28,7 +28,7 @@ namespace frc1706 {
 
     void BallTracker::run() {
         //this->_task =
-        void(std::async(std::launch::async, BallTracker::_run, this));
+        this->_task = std::async(std::launch::async, BallTracker::_run, this);
     }
 
     cv::Mat BallTracker::getCurrentFrame() {

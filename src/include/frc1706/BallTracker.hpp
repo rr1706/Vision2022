@@ -44,7 +44,7 @@ namespace frc1706 {
             void _setCurrentFrame(const cv::Mat &new_frame);
         
             // Initalize async task in class so it won't go out of scope later
-            //std::future<void> _task;
+            std::future<void> _task;
             // Current process frame
             cv::Mat _current_frame;
             // mutex for above

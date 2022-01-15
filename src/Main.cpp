@@ -1,10 +1,12 @@
 #include "frc1706/BallTracker.hpp"
 
+#include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/videoio.hpp"
 
+#include <cstdlib>
 #include <iostream>
 
 using namespace frc1706;
@@ -23,9 +25,13 @@ int main() {
     
     // Loop until esc key is pressed 
     while(true) {
-        cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
-        //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
-        std::cout << "Showing next frame\n";
+        try {
+            cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
+            //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
+        } catch(const cv::Exception &err) {
+            std::cerr << err.what();
+            std::exit(EXIT_FAILURE);
+        }
 
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
