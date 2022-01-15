@@ -11,7 +11,7 @@ poconet = [cpp.find_library('PocoNet'), cpp.find_library('PocoFoundation')]
 #poconet = dependency('Poco', method: 'cmake', modules: ['Poco::Net', 'Poco::Foundation'])
 
 program = executable(
-    'poconet-client_tester',
+    'PoconetClientTester',
     ['Server.cpp'],
     dependencies: [poconet]
 )

@@ -6,7 +6,6 @@
 #include "opencv2/videoio.hpp"
 
 #include <iostream>
-#include <thread>
 
 using namespace frc1706;
 

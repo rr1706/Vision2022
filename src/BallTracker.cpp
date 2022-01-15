@@ -5,6 +5,8 @@
 
 #include <iostream>
 #include <future>
+#include <chrono>
+#include <thread>
 #include <mutex>
 
 namespace frc1706 {
@@ -24,7 +26,8 @@ namespace frc1706 {
     }
 
     void BallTracker::run() {
-        this->_task = std::async(std::launch::async, BallTracker::_run, this);
+        //this->_task =
+        std::async(std::launch::async, BallTracker::_run, this);
     }
 
     cv::Mat BallTracker::getCurrentFrame() {
@@ -42,6 +45,7 @@ namespace frc1706 {
                 self->_capture_device >> self->_current_frame;
             }
             //self->process();
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
 };
