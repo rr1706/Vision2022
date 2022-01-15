@@ -47,14 +47,17 @@ namespace frc1706 {
 
     void BallTracker::_run(BallTracker* self) {
         while(true) {
-            { // Destroy tmp_frame after it's not needed 
-                cv::Mat tmp_frame;
-                self->_capture_device.read(tmp_frame);
-                self->_setCurrentFrame(tmp_frame);
-                std::cout << "Ball tracker read new frame\n";
+            { // Destroy next_frame after it's not needed 
+                cv::Mat next_frame;
+                if(self->_capture_device.read(next_frame)) {
+                    std::cout << "Reading next frame for Ball Tracker: " << self << std::endl;
+                    self->_setCurrentFrame(next_frame);
+                } else {
+                    std::cerr << "Unable to read next frame from " << self->_capture_device.getBackendName(); 
+                }
             }
             //self->process();
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
 };
