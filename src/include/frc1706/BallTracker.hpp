@@ -4,8 +4,15 @@
 #include <future>
 
 namespace frc1706 {
+    /**
+     * @brief takes a cv::VideoCapture then runs a ball tracking algo on it async 
+     */
     class BallTracker {
         public:
+            /**
+             * @param cap the cv::VideoCapture device to use
+             * @param broadcast should this tracker broadcast it's data/video stream
+             */
             BallTracker(const cv::VideoCapture &cap, bool broadcast = true);
             virtual ~BallTracker();
 
@@ -26,7 +33,10 @@ namespace frc1706 {
              * @return The current cv::Mat that is being processed
              */
             cv::Mat getCurrentFrame();
-        
+            
+            // safely _task by changing this once the object goes out of scope 
+            bool enabled = true;
+
         private:
             /**
              * TODO 
@@ -42,7 +52,7 @@ namespace frc1706 {
              * @brief setter method for _current_frame, locks it with an std::mutex
              */
             void _setCurrentFrame(const cv::Mat &new_frame);
-        
+
             // Initalize async task in class so it won't go out of scope later
             std::future<void> _task;
             // Current process frame

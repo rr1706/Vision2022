@@ -14,6 +14,7 @@ namespace frc1706 {
         _capture_device(cap), _enable_broadcast(broadcast) {}
     
     BallTracker::~BallTracker() {
+        this->enabled = false;
         this->_capture_device.release();
     }
     
@@ -27,7 +28,10 @@ namespace frc1706 {
     }
 
     void BallTracker::run() {
-        //this->_task =
+        /**
+         * The value of _task isn't used anywhere but it is required to store
+         * the output of std::async to keep it from destroying itself
+         */
         this->_task = std::async(std::launch::async, BallTracker::_run, this);
     }
 
@@ -47,17 +51,21 @@ namespace frc1706 {
 
     void BallTracker::_run(BallTracker* self) {
         while(true) {
-            { // Destroy next_frame after it's not needed 
+            if(self->enabled) { 
                 cv::Mat next_frame;
                 if(self->_capture_device.read(next_frame)) {
                     std::cout << "Reading next frame for Ball Tracker: " << self << std::endl;
                     self->_setCurrentFrame(next_frame);
                 } else {
-                    std::cerr << "Unable to read next frame from " << self->_capture_device.getBackendName(); 
+                    std::cerr << "Unable to read next frame\n"; 
                 }
+            } else { 
+                break; 
             }
-            //self->process();
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            
+            cv::Mat processed = self->process();
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
 };
