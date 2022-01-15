@@ -1,2 +1,4 @@
+opencv-python
 paramiko
+conan
 scp

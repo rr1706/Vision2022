@@ -1,4 +1,4 @@
-#include "frc1706/DriverClient.hpp"
+#include "frc1706/BallTracker.hpp"
 
 #include "opencv2/core/mat.hpp"
 #include "opencv2/highgui.hpp"
@@ -10,38 +10,27 @@
 using namespace frc1706;
 
 int main() {
-    //std::vector<uchar> quality; // 1-100, default 20 
-    //cv::VideoCapture ballcam(0);
-    //cv::Mat ballcam_base;
-    //cv::VideoCapture tapecam(1);
-    //cv::Mat tapecam_base;
+    // Set camera parameters
+    //std::vector<cv::VideoCaptureProperties> ball_cam_props;
+    //ball_cam_props.set(cv::CAP_PROP_FRAME_WIDTH, 480);
+    //ball_cam_props.set(cv::CAP_PROP_FRAME_HEIGHT, 640);
 
-    DriverClient client_socket;
-
-    // Adjust camera parameters
-    // FIXME: Why does this error?
-    //ballcam.set(cv::CAP_PROP_FRAME_WIDTH, 480);
-    //ballcam.set(cv::CAP_PROP_FRAME_HEIGHT, 640);
-
+    BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
+    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2));
+    
+    ball_cam.run();
+    //tape_cam.run();
+    
+    cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
+    //cv::imshow("Ball Camera", tape_cam.getCurrentFrame());
+        
+    // Hold until esc key is pressed 
     while(true) {
-    //while(ballcam.isOpened()) {
-        //ballcam >> ballcam_base;
-        
-        client_socket.sendTest();
-        
-        //cv::imshow("Ball Camera", ballcam_base);
-
-        //auto ballcam_jpeg = cv::imencode(".jpg", ballcam_base, quality);
-        
-        // send jpegs
-
         char esc = cv::waitKey(33);
-        if(esc == 27) {
-            //ballcam.release();
-            break;
-        }
+        if(esc == 27) { break; }
     }
 
-    std::cout << "Exiting video stream\n";
-    return 0; 
+    std::cout << "Exiting\n";
+    return EXIT_SUCCESS; 
 }
+//auto ballcam_jpeg = cv::imencode(".jpg", ballcam_base, quality);

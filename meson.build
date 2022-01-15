@@ -41,7 +41,13 @@ run_target(
         '| tee -a builddir/deploy.log'
     ]
 )
+run_target(
+    'pip',
+    command: ['pip', 'install', '-r', 'requirements.txt']
+)
 
 # Running test
 #meson test -C builddir --wrap=valgrind
 #meson test -C builddir --gdb # Interactive
+
+#Benchmark: 2200ms transfer

@@ -14,7 +14,7 @@ namespace frc1706 {
              * @return a cv::Mat that is the final processed image/cv::Mat 
              */
             cv::Mat process();
-
+            
             /**
              * @brief runs process() then uses the resulting cv::Mat to pull data,
              *        broadcast image aswell if it is enabled.
@@ -22,13 +22,19 @@ namespace frc1706 {
              */
             int run();
             
+            /**
+             * TODO
+             */
+            cv::Mat getCurrentFrame();
+
         private:
             /**
-             * 
+             * TODO 
              */
             void _broadcast(const cv::Mat &frame);
 
             bool _enable_broadcast;
+            cv::Mat _current_frame;
             cv::VideoCapture _capture_device;
     };
 };
