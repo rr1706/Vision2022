@@ -22,7 +22,7 @@ namespace frc1706 {
             void run();
             
             /**
-             * @brief getter method for _current_frame
+             * @brief getter method for _current_frame, locks with std::mutex
              * @return The current cv::Mat that is being processed
              */
             cv::Mat getCurrentFrame();
@@ -37,7 +37,12 @@ namespace frc1706 {
              * @brief internal static method for run(), allows it to be run async
              */
             static void _run(BallTracker* self);
-
+        
+            /**
+             * @brief setter method for _current_frame, locks it with an std::mutex
+             */
+            void _setCurrentFrame(const cv::Mat &new_frame);
+        
             // Initalize async task in class so it won't go out of scope later
             //std::future<void> _task;
             // Current process frame
