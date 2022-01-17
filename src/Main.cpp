@@ -36,7 +36,7 @@ int main() {
         try {
             // If frame not empty display it
             if(!ball_cam.getCurrentFrame().empty()) {
-                cv::imshow("Ball Camera", ball_cam.getCurrentFrame());
+                cv::imshow("Ball Camera", ball_cam.getCurrentFrame(true));
             }
             //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
         } catch(const cv::Exception &err) {

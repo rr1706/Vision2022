@@ -6,10 +6,10 @@
 #include <string>
 
 namespace frc1706 {
-    class DriverClient {
+    class RoboRIOClient {
         public:
-            DriverClient(const std::string ip = "127.0.0.1", Poco::UInt16 port = 1706);
-            virtual ~DriverClient();
+            RoboRIOClient(const std::string ip = "127.0.0.1", Poco::UInt16 port = 1706);
+            virtual ~RoboRIOClient();
 
             void sendTest();
 

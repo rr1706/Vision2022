@@ -32,7 +32,7 @@ namespace frc1706 {
              * @brief getter method for _current_frame, locks with std::mutex
              * @return The current cv::Mat that is being processed
              */
-            cv::Mat getCurrentFrame();
+            cv::Mat getCurrentFrame(bool show_tracking = false);
             
             // safely _task by changing this once the object goes out of scope 
             bool enabled = true;
@@ -51,12 +51,14 @@ namespace frc1706 {
             /**
              * @brief setter method for _current_frame, locks it with an std::mutex
              */
-            void _setCurrentFrame(const cv::Mat &new_frame);
+            void _setCurrentFrame(const cv::Mat &new_frame, bool tracked_frame = false);
 
             // Initalize async task in class so it won't go out of scope later
             std::future<void> _task;
-            // Current process frame
+            // Current frame
             cv::Mat _current_frame;
+            // Current frame but with tracking shown
+            cv::Mat _current_frame_tracked;
             // mutex for above
             std::mutex _current_frame_mutex;
             // Capture device 

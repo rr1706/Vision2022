@@ -18,7 +18,7 @@ program = executable(
     [
         'src/Main.cpp', 
         'src/BallTracker.cpp', 
-        'src/DriverClient.cpp', 
+        'src/RoboRIOClient.cpp', 
         'src/MathUtils.cpp', 
         'src/TapeTracker.cpp'
     ],
