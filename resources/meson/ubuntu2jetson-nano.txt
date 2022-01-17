@@ -1,0 +1,23 @@
+# TODO
+[binaries]
+c = '/usr/bin/arm-linux-gnueabihf-gcc'
+cpp = '/usr/bin/arm-linux-gnueabihf-g++'
+ar = '/usr/arm-linux-gnueabihf/bin/ar'
+strip = '/usr/arm-linux-gnueabihf/bin/strip'
+pkgconfig = '/usr/bin/arm-linux-gnueabihf-pkg-config'
+ld = '/usr/bin/arm-linux/gnueabihf-ld'
+
+#[built-in options]
+#c_args = ['']
+#cpp_args = ['']
+
+[properties]
+root = '/usr/arm-linux-gnueabihf'
+
+skip_sanity_check = true
+
+[host_machine]
+system = 'linux'
+cpu_family = 'arm'
+cpu = 'armv7' # Not sure if correct.
+endian = 'little'

@@ -1,0 +1,21 @@
+target_host=
+
+[settings]
+os=Linux
+arch=armv7 # Not sure if correct
+compiler=gcc
+compiler.version=6 # What version is in the toolchain?
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[env]
+AR=
+AS=
+RANLIB=
+LD=
+STRIP=
+CC=
+CXX=
+
+#CFLAGS=
+#CXXFLAGS=

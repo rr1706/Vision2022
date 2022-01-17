@@ -2,7 +2,6 @@
 
 builddir/
 .clangd/
-compile_commands.json
 .cache/
 
 *.slo

@@ -1,75 +1,54 @@
+#include "frc1706/BallTracker.hpp"
+
+#include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/videoio.hpp"
 
-#include "Poco/Net/SocketAddress.h"
-#include "Poco/Net/StreamSocket.h"
-#include "Poco/Net/SocketStream.h"
-#include "Poco/Types.h"
-
-#include <bits/stdint-uintn.h>
+#include <cstdlib>
 #include <iostream>
-#include <string>
-#include <vector>
 
-
-namespace frc1706 {
-    class CameraServer {
-        public:
-            CameraServer(const std::string ip = "localhost", Poco::UInt16 port = 1706) :
-                _address(ip, port), _socket(_address), _data_stream(_socket) {
-
-            }
-            virtual ~CameraServer() {
-                std::cout << "Closing server broadcasting on %s\n",  _address.host().toString();
-            }
-
-            void sendTest() {
-                this->_data_stream << 
-                    "HTTP/1.0 200 OK\r\n"
-                    "Content-Type: text/html\r\n"
-                    "\r\n"
-                    "<html><head><title>Simple test</title></head>"
-                    "<body><h1>Hello, world!</h1></body></html>"
-                << std::flush;
-            }
-
-        private:
-            Poco::Net::SocketAddress _address; // does bind + listen
-            Poco::Net::StreamSocket _socket;
-            Poco::Net::SocketStream _data_stream;
-    };
-};
+using namespace frc1706;
 
 int main() {
+    /**
+     * Create a cv::VideoCaptureProperties list to store the parameters of
+     * the cameras used
+     */ 
+    //std::vector<cv::VideoCaptureProperties> ball_cam_props;
+    //ball_cam_props.set(cv::CAP_PROP_FRAME_WIDTH, 480);
+    //ball_cam_props.set(cv::CAP_PROP_FRAME_HEIGHT, 640);
 
-    std::vector<uchar> quality; // 1-100, default 20 
-    cv::VideoCapture ballcam(0);
-    cv::Mat ballcam_base;
-    //cv::VideoCapture tapecam(1);
-    //cv::Mat tapecam_base;
+    // Create tracker objects
+    // TODO: how can these be more easily changed on the fly?
+    BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
+    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2));
 
-    // Adjust camera parameters
-    ballcam.set(cv::CAP_PROP_FRAME_WIDTH, 480);
-    ballcam.set(cv::CAP_PROP_FRAME_HEIGHT, 640);
+    // Run the tracking algorithms, these run async
+    ball_cam.run();
+    //tape_cam.run();
 
-    while(ballcam.isOpened()) {
-        ballcam >> ballcam_base;
-
-        cv::imshow("Ball Camera", ballcam_base);
-
-        auto ballcam_jpeg = cv::imencode(".jpg", ballcam_base, quality);
-        
-        // send jpegs
-
-        char esc = cv::waitKey(33);
-        if(esc == 27) {
-            ballcam.release();
-            break;
+#define DISPLAY 1 // Make this a compile option     
+    // Loop until esc key is pressed 
+    while(true) {
+#ifdef DISPLAY
+        try {
+            // If frame not empty display it
+            if(!ball_cam.getCurrentFrame().empty()) {
+                cv::imshow("Ball Camera", ball_cam.getCurrentFrame(true));
+            }
+            //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
+        } catch(const cv::Exception &err) {
+            std::cerr << err.what();
+            std::exit(EXIT_FAILURE);
         }
+#endif
+        char esc = cv::waitKey(33);
+        if(esc == 27) { break; }
     }
 
-    std::cout << "Exiting video stream\n";
-    return 0; 
+    std::cout << "Exiting\n";
+    return EXIT_SUCCESS; 
 }
+//auto ballcam_jpeg = cv::imencode(".jpg", ballcam_base, quality);
