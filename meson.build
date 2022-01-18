@@ -1,7 +1,7 @@
 project(
     'Vision2022',
     'cpp',
-    version: '0.0.2',
+    version: '0.1.0',
     default_options: ['cpp_std=c++11']
 )
 
@@ -10,6 +10,7 @@ cpp = meson.get_compiler('cpp')
 
 # Find dependancies
 opencv = dependency('opencv4')
+threads = dependency('threads')
 poconet = [cpp.find_library('PocoNet'), cpp.find_library('PocoFoundation')]
 
 # Create the main executable to be deployed
@@ -22,7 +23,7 @@ program = executable(
         'src/MathUtils.cpp', 
         'src/TapeTracker.cpp'
     ],
-    dependencies: [opencv, poconet],
+    dependencies: [opencv, poconet, threads],
     include_directories: include_directories('src/include')
 )
 
@@ -46,7 +47,7 @@ run_target( # Conan is used to cross compile deps for a co-processer
     command: [
         'conan',
         'install .',
-        '-if buildir/conan',
+        '-if ${MESON_BUILD_ROOT}/conan',
         '-pr:b=default',
         '-pr:h=${MESON_SOURCE_ROOT}/resources/conan/jetson-nano',
         '-s build_type=Release',
@@ -55,7 +56,7 @@ run_target( # Conan is used to cross compile deps for a co-processer
 )
 run_target(
     'pip',
-    command: ['pip', 'install', '-r', '${MESON_SOURCE_ROOT}/requirements.txt']
+    command: ['pip', 'install', 'opencv-python paramiko meson conan scp']
 )
 
 # Running test

@@ -6,7 +6,8 @@ echo "frc ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # why does it ship with docker?
 apt remove docker
-apt install mingetty
+apt update && apt upgrade
+sudo apt install libopencv-dev libpoco-dev
 
 # Enable fan
 jetson_clocks --fan
@@ -33,6 +34,7 @@ systemctl enable getty@tty1.service
 passwd -d frc
 
 # Auto load jetson_clocks config
-echo "sudo jetson_clocks -- ~/frc/clocks.conf & disown" >> /home/frc/.bashrc
+# FIXME: Make this into a service file
+#echo "sudo jetson_clocks -- ~/frc/clocks.conf & disown" >> /home/frc/.bashrc
 
 echo "Finish setup"
