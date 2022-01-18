@@ -31,8 +31,8 @@ namespace frc1706 {
 
         cv::GaussianBlur(this->getCurrentFrame(), blurred, cv::Size(10, 10), 0);
         // hsv is in question because we need to give the pose of the closest(largest) red and blue ball
-        cv::cvtColor(blurred, hsv, cv::COLOR_BGR2HSV);
-        hsv.copyTo(threshed);
+        //cv::cvtColor(blurred, hsv, cv::COLOR_BGR2HSV);
+        blurred.copyTo(threshed);
 
         return threshed;
     }
@@ -88,7 +88,7 @@ namespace frc1706 {
             }
 
             cv::Mat processed = self->process();
-
+ 
             if (!processed.empty())
                 self->_setCurrentFrame(processed, true);
 
