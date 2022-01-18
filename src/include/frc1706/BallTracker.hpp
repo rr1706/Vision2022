@@ -33,7 +33,12 @@ namespace frc1706 {
              * @return The current cv::Mat that is being processed
              */
             cv::Mat getCurrentFrame(bool show_tracking = false);
-            
+
+            /**
+             * TODO
+             */
+            void show(const std::string &win_name, bool show_tracking = false);
+                    
             // safely _task by changing this once the object goes out of scope 
             bool enabled = true;
 

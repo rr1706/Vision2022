@@ -34,10 +34,7 @@ int main() {
     while(true) {
 #ifdef DISPLAY
         try {
-            // If frame not empty display it
-            if(!ball_cam.getCurrentFrame().empty()) {
-                cv::imshow("Ball Camera", ball_cam.getCurrentFrame(true));
-            }
+            ball_cam.show("Ball Camera", true);
             //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
         } catch(const cv::Exception &err) {
             std::cerr << err.what();

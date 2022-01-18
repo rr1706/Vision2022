@@ -23,13 +23,13 @@ namespace frc1706 {
     }
     
     cv::Mat BallTracker::process() {
-        if(this->_current_frame.empty()) {
+        if(this->getCurrentFrame().empty()) {
             throw std::runtime_error("Current frame is empty, unable to process");
         }
 
         cv::Mat threshed, hsv, blurred;
 
-        cv::GaussianBlur(this->_current_frame, blurred, cv::Size(10, 10), 0);
+        cv::GaussianBlur(this->getCurrentFrame(), blurred, cv::Size(10, 10), 0);
         // hsv is in question because we need to give the pose of the closest(largest) red and blue ball
         cv::cvtColor(blurred, hsv, cv::COLOR_BGR2HSV);
         hsv.copyTo(threshed);
@@ -45,6 +45,13 @@ namespace frc1706 {
         this->_task = std::async(std::launch::async, BallTracker::_run, this);
     }
 
+    void BallTracker::show(const std::string &win_name, bool show_tracking) {
+        // If frame not empty display it
+        if(!this->getCurrentFrame().empty())
+            cv::imshow(win_name, this->getCurrentFrame(show_tracking));
+    
+    }
+    
     cv::Mat BallTracker::getCurrentFrame(bool show_tracking) {
         std::lock_guard<std::mutex> lock(this->_current_frame_mutex);
         if(show_tracking && !this->_current_frame_tracked.empty()) {
@@ -83,7 +90,7 @@ namespace frc1706 {
             cv::Mat processed = self->process();
 
             if (!processed.empty())
-                self->_current_frame_tracked = processed;
+                self->_setCurrentFrame(processed, true);
 
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }

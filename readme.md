@@ -2,6 +2,9 @@
 
 Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
+## Setup guide
+
+1. 
 
 ## Resources
 
