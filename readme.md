@@ -4,7 +4,9 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
 ## Setup guide
 
-1. 
+requirements: OpenCV 4(libopencv-dev), Poco(libpoco-dev), MsgPack(libmsgpack-dev), SpdLog(libspdlog-dev)  
+1. Download dependancies
+2. TODO
 
 ## Benchmarks
 
