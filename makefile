@@ -4,20 +4,20 @@ JETSON_USER=frc
 OUTDIR=builddir/
 JUNK=$(shell cat .gitignore)
 
-configure:
+configure: $(OUTDIR)
 	[ -d builddir/ ] && meson builddir || meson builddir --reconfigure
 
-debug: configure
+native: configure
 	ninja -C builddir
 
-release: clean configure
-	ninja -C builddir
-
-deploy: release
-	python3 scripts/deploy.py
+deploy: clean configure
+	ninja -C builddir/ deploy
 
 setup: configure
-	ninja -C builddir/ pip
+	ninja -C builddir/ setup
 
 clean:
 	rm -rf $(shell cat .gitignore)
+
+$(OUTDIR):
+	mkdir $(OUTDIR)
