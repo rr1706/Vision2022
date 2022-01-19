@@ -20,8 +20,13 @@ namespace frc1706 {
              * @brief process the current frame then return it as a cv::Mat 
              * @return a cv::Mat that is the final processed image/cv::Mat 
              */
-            cv::Mat process();
-            
+            cv::Mat process(const std::pair<cv::Scalar, cv::Scalar> &range);
+
+            /**
+             * TODO
+             */
+            cv::Mat track(const cv::Mat &threshed);
+
             /**
              * @brief runs process() then uses the resulting cv::Mat to pull data,
              *        broadcast image aswell if it is enabled.
@@ -38,7 +43,7 @@ namespace frc1706 {
              * TODO
              */
             void show(const std::string &win_name, bool show_tracking = false);
-                    
+
             // safely _task by changing this once the object goes out of scope 
             bool enabled = true;
 

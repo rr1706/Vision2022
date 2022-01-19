@@ -1,6 +1,7 @@
 #include "frc1706/BallTracker.hpp"
 
 #include "opencv2/core.hpp"
+#include "opencv2/core/mat.hpp"
 #include "opencv2/core/types.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/videoio.hpp"
@@ -12,6 +13,7 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
+#include <utility>
 
 namespace frc1706 {
     BallTracker::BallTracker(const cv::VideoCapture &cap, bool broadcast) :
@@ -22,18 +24,21 @@ namespace frc1706 {
         this->_capture_device.release();
     }
     
-    cv::Mat BallTracker::process() {
+    cv::Mat BallTracker::process(const std::pair<cv::Scalar, cv::Scalar> &range) {
         if(this->getCurrentFrame().empty()) {
             throw std::runtime_error("Current frame is empty, unable to process");
         }
 
-        cv::Mat threshed, hsv, blurred;
-
-        cv::GaussianBlur(this->getCurrentFrame(), blurred, cv::Size(10, 10), 0);
+        cv::Mat threshed;
+        
+        // gaussian blur is broken for some reason
+        //cv::GaussianBlur(this->getCurrentFrame(), blurred, cv::Size(10, 10), 0);
+        
         // hsv is in question because we need to give the pose of the closest(largest) red and blue ball
         //cv::cvtColor(blurred, hsv, cv::COLOR_BGR2HSV);
-        blurred.copyTo(threshed);
-
+       
+        cv::inRange(this->getCurrentFrame(), range.first, range.second, threshed);
+        
         return threshed;
     }
 
@@ -74,6 +79,16 @@ namespace frc1706 {
     }
 
     void BallTracker::_run(BallTracker* self) {
+        // OpenCV defaults to BGR not RGB
+        // min/max color values for each ball color
+        std::pair<cv::Scalar, cv::Scalar> blue = {
+            cv::Scalar(0, 0, 0), 
+            cv::Scalar(255, 255, 255)
+        };
+        std::pair<cv::Scalar, cv::Scalar> red = {
+            cv::Scalar(0, 0, 0), 
+            cv::Scalar(255, 255, 255)
+        };
         while(true) {
             if(self->enabled) { 
                 cv::Mat next_frame;
@@ -87,10 +102,16 @@ namespace frc1706 {
                 break; 
             }
 
-            cv::Mat processed = self->process();
- 
-            if (!processed.empty())
-                self->_setCurrentFrame(processed, true);
+            cv::Mat final;
+
+            // TODO: Make these run in parallel
+            cv::Mat processed_blue(self->process(blue));
+            cv::Mat processed_red(self->process(red));
+
+            //cv::findContours()
+
+            if (!final.empty())
+                self->_setCurrentFrame(final, true);
 
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
