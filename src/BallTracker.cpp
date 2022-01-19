@@ -14,6 +14,7 @@
 #include <thread>
 #include <mutex>
 #include <utility>
+#include <vector>
 
 namespace frc1706 {
     BallTracker::BallTracker(const cv::VideoCapture &cap, bool broadcast) :
@@ -40,6 +41,25 @@ namespace frc1706 {
         cv::inRange(this->getCurrentFrame(), range.first, range.second, threshed);
         
         return threshed;
+    }
+
+    cv::Mat BallTracker::track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color) {
+       
+        cv::Mat final(clean);
+        std::vector<std::vector<cv::Point>> cnts;
+        cv::Point2f ball_center_flat;
+        float radius;
+
+        cv::findContours(threshed, cnts, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+        
+        if(!cnts.empty()) {
+            for(std::vector<cv::Point> cnt : cnts) {
+                cv::minEnclosingCircle(cnt, ball_center_flat, radius);
+                cv::circle(final, ball_center_flat, radius, color, 3);
+            }
+        }
+
+        return final;
     }
 
     void BallTracker::run() {
@@ -102,14 +122,13 @@ namespace frc1706 {
                 break; 
             }
 
-            cv::Mat final;
 
             // TODO: Make these run in parallel
             cv::Mat processed_blue(self->process(blue));
-            cv::Mat processed_red(self->process(red));
-
-            //cv::findContours()
-
+            //cv::Mat processed_red(self->process(red));
+            
+            cv::Mat final(self->track(processed_blue, self->getCurrentFrame()));
+            
             if (!final.empty())
                 self->_setCurrentFrame(final, true);
 

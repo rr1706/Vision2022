@@ -1,4 +1,5 @@
 #include "opencv2/core/mat.hpp"
+#include "opencv2/core/types.hpp"
 #include "opencv2/videoio.hpp"
 
 #include <future>
@@ -25,7 +26,7 @@ namespace frc1706 {
             /**
              * TODO
              */
-            cv::Mat track(const cv::Mat &threshed);
+            cv::Mat track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color = cv::Scalar(255, 0, 0));
 
             /**
              * @brief runs process() then uses the resulting cv::Mat to pull data,

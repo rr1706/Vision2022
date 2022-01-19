@@ -5,10 +5,10 @@ project(
     default_options: ['cpp_std=c++11']
 )
 
+team_number = '1706'
+frc_year = '2022'
 jetson_user = 'frc'
-jetson_ip = = 'jetson'
-team_number = 1706
-frc_year = 2022
+jetson_ip = 'jetson'
 
 # Used to manually find libraries(the -l flag) 
 cpp = meson.get_compiler('cpp')
@@ -41,5 +41,5 @@ test('basic', vision)
 # Custom task
 run_target('deploy', command: ['sh', 'scripts/deploy.sh', team_number, frc_year])
 run_target('setup', command: ['sh', 'scripts/setup.sh', team_number, frc_year])
-run_target('test', command: ['sh', 'scripts/test.sh', team_number, frc_year])
+run_target('unittest', command: ['sh', 'scripts/test.sh', team_number, frc_year])
 
