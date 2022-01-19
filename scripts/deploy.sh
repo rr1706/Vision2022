@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/sh
 
 import paramiko
 from scp import SCPClient

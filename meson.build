@@ -5,6 +5,11 @@ project(
     default_options: ['cpp_std=c++11']
 )
 
+jetson_user = 'frc'
+jetson_ip = = 'jetson'
+team_number = 1706
+frc_year = 2022
+
 # Used to manually find libraries(the -l flag) 
 cpp = meson.get_compiler('cpp')
 
@@ -14,7 +19,7 @@ threads = dependency('threads')
 poconet = [cpp.find_library('PocoNet'), cpp.find_library('PocoFoundation')]
 
 # Create the main executable to be deployed
-program = executable(
+vision = executable(
     'vision',
     [
         'src/Main.cpp', 
@@ -31,35 +36,10 @@ program = executable(
 subproject('PocoNetClientTester')
 
 # Add test targets
-test('basic', program, suite: 'jetson')
+test('basic', vision)
 
 # Custom task
-run_target(
-    'deploy',
-    command: [
-        'python3',
-        'scripts/deploy.py',
-        '| tee -a builddir/meson-logs/deploy.log'
-    ]
-)
-run_target( # Conan is used to cross compile deps for a co-processer
-    'conan',
-    command: [
-        'conan',
-        'install', '.',
-        '-if', 'builddir/conan',
-        '-pr:b=default',
-        '-pr:h=resources/conan/jetson-nano',
-        '-s', 'build_type=Release'
-    ]
-)
-run_target(
-    'pip',
-    command: ['pip', 'install', 'opencv-python paramiko meson conan scp']
-)
+run_target('deploy', command: ['sh', 'scripts/deploy.sh', team_number, frc_year])
+run_target('setup', command: ['sh', 'scripts/setup.sh', team_number, frc_year])
+run_target('test', command: ['sh', 'scripts/test.sh', team_number, frc_year])
 
-# Running test
-#meson test -C builddir --wrap=valgrind
-#meson test -C builddir --gdb # Interactive
-
-#Benchmark: 2200ms transfer
