@@ -1,0 +1,6 @@
+[requires]
+poco/1.11.1
+opencv/4.5.3
+
+[generators]
+pkg_config

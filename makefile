@@ -4,7 +4,7 @@ JETSON_USER=frc
 OUTDIR=builddir/
 JUNK=$(shell cat .gitignore)
 
-configure:
+configure: $(OUTDIR)
 	[ -d builddir/ ] && meson builddir || meson builddir --reconfigure
 
 debug: configure
@@ -21,3 +21,6 @@ setup: configure
 
 clean:
 	rm -rf $(shell cat .gitignore)
+
+$(OUTDIR):
+	mkdir $(OUTDIR)

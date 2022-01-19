@@ -38,20 +38,19 @@ run_target(
     'deploy',
     command: [
         'python3',
-        '${MESON_SOURCE_ROOT}/scripts/deploy.py',
-        '| tee -a ${MESON_BUILD_ROOT}/meson-logs/deploy.log'
+        'scripts/deploy.py',
+        '| tee -a builddir/meson-logs/deploy.log'
     ]
 )
 run_target( # Conan is used to cross compile deps for a co-processer
-    'conan (release)',
+    'conan',
     command: [
         'conan',
-        'install .',
-        '-if ${MESON_BUILD_ROOT}/conan',
+        'install', '.',
+        '-if', 'builddir/conan',
         '-pr:b=default',
-        '-pr:h=${MESON_SOURCE_ROOT}/resources/conan/jetson-nano',
-        '-s build_type=Release',
-        '| tee -a ${MESON_BUILD_ROOT}/meson-logs/conan.log'
+        '-pr:h=resources/conan/jetson-nano',
+        '-s', 'build_type=Release'
     ]
 )
 run_target(
