@@ -1,1 +1,38 @@
-builddir/compile_commands.json
+[
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Ivision@exe -I. -I.. -I../src/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -pthread -MD -MQ 'vision@exe/src_Main.cpp.o' -MF 'vision@exe/src_Main.cpp.o.d' -o 'vision@exe/src_Main.cpp.o' -c ../src/Main.cpp",
+    "file": "../src/Main.cpp",
+    "output": "vision@exe/src_Main.cpp.o"
+  },
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Ivision@exe -I. -I.. -I../src/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -pthread -MD -MQ 'vision@exe/src_BallTracker.cpp.o' -MF 'vision@exe/src_BallTracker.cpp.o.d' -o 'vision@exe/src_BallTracker.cpp.o' -c ../src/BallTracker.cpp",
+    "file": "../src/BallTracker.cpp",
+    "output": "vision@exe/src_BallTracker.cpp.o"
+  },
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Ivision@exe -I. -I.. -I../src/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -pthread -MD -MQ 'vision@exe/src_RoboRIOClient.cpp.o' -MF 'vision@exe/src_RoboRIOClient.cpp.o.d' -o 'vision@exe/src_RoboRIOClient.cpp.o' -c ../src/RoboRIOClient.cpp",
+    "file": "../src/RoboRIOClient.cpp",
+    "output": "vision@exe/src_RoboRIOClient.cpp.o"
+  },
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Ivision@exe -I. -I.. -I../src/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -pthread -MD -MQ 'vision@exe/src_MathUtils.cpp.o' -MF 'vision@exe/src_MathUtils.cpp.o.d' -o 'vision@exe/src_MathUtils.cpp.o' -c ../src/MathUtils.cpp",
+    "file": "../src/MathUtils.cpp",
+    "output": "vision@exe/src_MathUtils.cpp.o"
+  },
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Ivision@exe -I. -I.. -I../src/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -pthread -MD -MQ 'vision@exe/src_TapeTracker.cpp.o' -MF 'vision@exe/src_TapeTracker.cpp.o.d' -o 'vision@exe/src_TapeTracker.cpp.o' -c ../src/TapeTracker.cpp",
+    "file": "../src/TapeTracker.cpp",
+    "output": "vision@exe/src_TapeTracker.cpp.o"
+  },
+  {
+    "directory": "/mnt/c/Users/rr170/Documents/GitHub/Vision2022/builddir",
+    "command": "c++ -Isubprojects/PocoNetClientTester/cb23e4c@@PoconetClientTester@exe -Isubprojects/PocoNetClientTester -I../subprojects/PocoNetClientTester -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++11 -g -MD -MQ 'subprojects/PocoNetClientTester/cb23e4c@@PoconetClientTester@exe/Server.cpp.o' -MF 'subprojects/PocoNetClientTester/cb23e4c@@PoconetClientTester@exe/Server.cpp.o.d' -o 'subprojects/PocoNetClientTester/cb23e4c@@PoconetClientTester@exe/Server.cpp.o' -c ../subprojects/PocoNetClientTester/Server.cpp",
+    "file": "../subprojects/PocoNetClientTester/Server.cpp",
+    "output": "subprojects/PocoNetClientTester/cb23e4c@@PoconetClientTester@exe/Server.cpp.o"
+  }
+]

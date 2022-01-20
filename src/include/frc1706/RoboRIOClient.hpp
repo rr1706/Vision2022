@@ -11,7 +11,7 @@ namespace frc1706 {
             RoboRIOClient(const std::string ip = "127.0.0.1", Poco::UInt16 port = 1706);
             virtual ~RoboRIOClient();
 
-            void sendTest();
+            void send();
 
         private:
             int _connect(const std::string &ip, const Poco::UInt16 &port);

@@ -20,9 +20,8 @@ namespace frc1706 {
     };
 
     RoboRIOClient::~RoboRIOClient() {} // Setup safe disconnect
-
     
-    void RoboRIOClient::sendTest() try {
+    void RoboRIOClient::send() try {
         std::string data = "Hello!";
         this->_dg_socket.sendBytes(data.data(), data.size());
     } catch (const Poco::Exception &err) {
