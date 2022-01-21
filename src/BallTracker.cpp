@@ -53,10 +53,12 @@ namespace frc1706 {
         cv::findContours(threshed, cnts, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         
         if(!cnts.empty()) {
+            //std::vector<cv::Point2i> cnt = cv::max(cnts.);
+		    /*
             for(std::vector<cv::Point> cnt : cnts) {
                 cv::minEnclosingCircle(cnt, ball_center_flat, radius);
                 cv::circle(final, ball_center_flat, radius, color, 3);
-            }
+            } */
         }
 
         return final;
