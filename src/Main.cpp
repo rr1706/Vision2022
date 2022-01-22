@@ -44,7 +44,7 @@ int main() {
             std::exit(EXIT_FAILURE);
         }
 #endif
-        //client.send(); 
+        client.send(); 
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
     }

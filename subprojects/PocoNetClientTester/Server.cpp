@@ -9,6 +9,7 @@
 #include "opencv2/imgcodecs.hpp"
 
 #include <iostream>
+#include <msgpack/v3/adaptor/detail/cpp11_msgpack_tuple_decl.hpp>
 #include <sstream>
 #include <chrono>
 #include <vector>
@@ -25,19 +26,16 @@ int main() try {
     while(true) {
         SocketAddress sender;
         int data = dg_socket.receiveFrom(buf, sizeof(buf) - 1, sender);
-        std::cout << data << std::endl;
-        //buf[data] = '\0';
-        /* if(data != 0) {
-            std::vector<uchar> jpg;
-            std::string msg_data(buf); // Do I need to cast this to a string here?
-            msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
-            
-            msg.convert(jpg); 
-            
-            cv::Mat image = cv::imdecode(cv::Mat(jpg), 1);
-            
-            cv::imshow(sender.toString(), image);
-        } */
+        buf[data] = '\0';
+        //std::vector<uchar> jpg;
+        std::string msg_data(buf); // Do I need to cast this to a string here?
+        msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
+        
+        //msg.convert(jpg); 
+        
+        cv::Mat image = cv::imdecode(cv::Mat(msg.as<std::vector<uchar>>()), 1);
+        
+        cv::imshow(sender.toString(), image);
     }
 
     return EXIT_SUCCESS;
