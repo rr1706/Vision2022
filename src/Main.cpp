@@ -1,4 +1,5 @@
 #include "frc1706/BallTracker.hpp"
+#include "frc1706/RoboRIOClient.hpp"
 
 #include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
@@ -22,14 +23,16 @@ int main() {
 
     // Create tracker objects
     // TODO: how can these be more easily changed on the fly?
-    BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
+    //BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
     //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2));
 
     // Run the tracking algorithms, these run async
-    ball_cam.run();
+    //ball_cam.run();
     //tape_cam.run();
 
-#define DISPLAY 1 // Make this a compile option     
+    RoboRIOClient client;
+
+#undef DISPLAY // Make this a compile option     
     // Loop until esc key is pressed 
     while(true) {
 #ifdef DISPLAY
@@ -41,6 +44,7 @@ int main() {
             std::exit(EXIT_FAILURE);
         }
 #endif
+        //client.send(); 
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
     }
@@ -48,4 +52,3 @@ int main() {
     std::cout << "Exiting\n";
     return EXIT_SUCCESS; 
 }
-//auto ballcam_jpeg = cv::imencode(".jpg", ballcam_base, quality);

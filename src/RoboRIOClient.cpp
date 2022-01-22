@@ -1,13 +1,22 @@
 #include "frc1706/RoboRIOClient.hpp"
 
+#include "opencv2/core.hpp"
+#include "opencv2/core/mat.hpp"
+
 #include "Poco/Net/SocketAddress.h"
 #include <Poco/Net/IPAddress.h>
 #include <Poco/Exception.h>
 #include "Poco/Types.h"
 
+#include "msgpack.hpp"
+#include "opencv2/imgcodecs.hpp"
+
 #include <cstdlib>
 #include <iostream>
+#include <msgpack/v3/adaptor/array_ref_decl.hpp>
+#include <sstream>
 #include <string>
+#include <vector>
 
 using namespace Poco::Net;
 
@@ -21,12 +30,27 @@ namespace frc1706 {
 
     RoboRIOClient::~RoboRIOClient() {} // Setup safe disconnect
     
-    void RoboRIOClient::send() try {
-        std::string data = "Hello!";
-        this->_dg_socket.sendBytes(data.data(), data.size());
-    } catch (const Poco::Exception &err) {
+    int RoboRIOClient::send() try {
+        cv::Mat image = cv::imread("/home/will/Pictures/pepe-nintendo.jpeg");
+        std::stringstream buffer;
+        std::vector<uchar> jpg_src;
+        //msgpack::type::tuple<std::vector<uchar>> msg(jpg);
+
+        if(cv::imencode(".jpg", image, jpg_src)) {
+            msgpack::pack(buffer, jpg_src);
+            buffer.seekg(0);
+            this->_dg_socket.sendBytes(buffer.rdbuf(), sizeof(buffer));
+        } else {
+            return EXIT_FAILURE;
+        } 
+        
+        return EXIT_SUCCESS;
+    } catch(const Poco::Exception &err) {
         std::cerr << err.displayText() << std::endl;
-        std::exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
+    } catch(const cv::Exception & err) {
+        std::cerr << err.what() << std::endl;
+        return EXIT_FAILURE;
     };
 
     int RoboRIOClient::_connect(const std::string &ip, const Poco::UInt16 &port) try {

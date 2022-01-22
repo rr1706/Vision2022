@@ -15,6 +15,7 @@ cpp = meson.get_compiler('cpp')
 
 # Find dependancies
 opencv = dependency('opencv4')
+msgpack = dependency('msgpack')
 threads = dependency('threads')
 poconet = [cpp.find_library('PocoNet'), cpp.find_library('PocoFoundation')]
 

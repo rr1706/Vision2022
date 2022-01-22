@@ -3,8 +3,15 @@
 #include "Poco/Net/IPAddress.h"
 #include "Poco/Exception.h"
 
+#include "msgpack.hpp"
+
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgcodecs.hpp"
+
 #include <iostream>
+#include <sstream>
 #include <chrono>
+#include <vector>
 
 using namespace Poco::Net;
 
@@ -13,28 +20,26 @@ int main() try {
     DatagramSocket dg_socket{address};
     char buf[512];
     
-    int msgs = 0;
-    std::chrono::time_point<std::chrono::system_clock> start; 
     std::cout << "Listening on " << address.toString() << std::endl; 
 
     while(true) {
         SocketAddress sender;
         int data = dg_socket.receiveFrom(buf, sizeof(buf) - 1, sender);
-        buf[data] = '\0';
-        msgs++;
-        if (msgs == 1) {
-            start = std::chrono::system_clock::now();
-        }
-        std::cout << "Message number " << msgs << ": " << buf << std::endl << std::endl;
-        if(msgs == 10) {
-            break;
-        }
+        std::cout << data << std::endl;
+        //buf[data] = '\0';
+        /* if(data != 0) {
+            std::vector<uchar> jpg;
+            std::string msg_data(buf); // Do I need to cast this to a string here?
+            msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
+            
+            msg.convert(jpg); 
+            
+            cv::Mat image = cv::imdecode(cv::Mat(jpg), 1);
+            
+            cv::imshow(sender.toString(), image);
+        } */
     }
 
-    auto end = std::chrono::system_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    std::cout << "Got 10 messages in " << elapsed.count() << "ms" << '\n';
-    
     return EXIT_SUCCESS;
 
 } catch(Poco::Exception &err) {

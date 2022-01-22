@@ -2,8 +2,11 @@
 #include "Poco/Net/SocketAddress.h"
 #include "Poco/Types.h"
 
+#include "msgpack.hpp"
+
 #include <iostream>
 #include <string>
+#include <list>
 
 namespace frc1706 {
     class RoboRIOClient {
@@ -11,8 +14,11 @@ namespace frc1706 {
             RoboRIOClient(const std::string ip = "127.0.0.1", Poco::UInt16 port = 1706);
             virtual ~RoboRIOClient();
 
-            void send();
-
+            /**
+             * TODO
+             */
+            int send();
+            
         private:
             int _connect(const std::string &ip, const Poco::UInt16 &port);
             
