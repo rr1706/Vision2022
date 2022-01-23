@@ -8,8 +8,10 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <msgpack/v3/adaptor/detail/cpp11_msgpack_tuple_decl.hpp>
+#include <msgpack/v3/object_fwd_decl.hpp>
 #include <sstream>
 #include <chrono>
 #include <vector>
@@ -23,19 +25,24 @@ int main() try {
     
     std::cout << "Listening on " << address.toString() << std::endl; 
 
-    while(true) {
-        SocketAddress sender;
-        int data = dg_socket.receiveFrom(buf, sizeof(buf) - 1, sender);
-        buf[data] = '\0';
-        //std::vector<uchar> jpg;
-        std::string msg_data(buf); // Do I need to cast this to a string here?
-        msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
-        
-        //msg.convert(jpg); 
-        
-        cv::Mat image = cv::imdecode(cv::Mat(msg.as<std::vector<uchar>>()), 1);
-        
-        cv::imshow(sender.toString(), image);
+    try {
+        while(true) {
+            SocketAddress sender;
+            int data = dg_socket.receiveFrom(buf, sizeof(buf) - 1, sender);
+            buf[data] = '\0';
+            //std::vector<uchar> jpg;
+            std::string msg_data(buf); // Do I need to cast this to a string here?
+            msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
+
+            //msg.convert(jpg); 
+
+            cv::Mat image = cv::imdecode(cv::Mat(msg.as<std::vector<uchar>>()), 1);
+
+            cv::imshow(sender.toString(), image);
+        }
+    } catch(const msgpack::type_error &err) {
+        std::cerr << err.what() << std::endl;
+        return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;

@@ -1,5 +1,5 @@
-#include "frc1706/BallTracker.hpp"
 #include "frc1706/RoboRIOClient.hpp"
+#include "frc1706/BallTracker.hpp"
 
 #include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
@@ -13,6 +13,9 @@
 using namespace frc1706;
 
 int main() {
+    // Connect to robot first
+    RoboRIOClient client; // TODO: Find IP
+    
     /**
      * Create a cv::VideoCaptureProperties list to store the parameters of
      * the cameras used
@@ -23,14 +26,13 @@ int main() {
 
     // Create tracker objects
     // TODO: how can these be more easily changed on the fly?
-    //BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
-    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2));
+    //BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2), client);
+    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2), client);
 
-    // Run the tracking algorithms, these run async
+    // Run the tracking algorithms, these run async, they also send the data
     //ball_cam.run();
     //tape_cam.run();
 
-    RoboRIOClient client;
 
 #undef DISPLAY // Make this a compile option     
     // Loop until esc key is pressed 

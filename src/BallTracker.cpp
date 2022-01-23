@@ -17,8 +17,8 @@
 #include <vector>
 
 namespace frc1706 {
-    BallTracker::BallTracker(const cv::VideoCapture &cap, bool broadcast) :
-        _capture_device(cap), _enable_broadcast(broadcast) {}
+    BallTracker::BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client) :
+        _capture_device(cap) {}
     
     BallTracker::~BallTracker() {
         this->enabled = false;

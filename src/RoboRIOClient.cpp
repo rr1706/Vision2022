@@ -10,10 +10,10 @@
 #include "Poco/Types.h"
 
 #include "msgpack.hpp"
-#include <msgpack/v3/adaptor/array_ref_decl.hpp>
 
 #include <cstdlib>
 #include <iostream>
+#include <msgpack/v3/object_fwd_decl.hpp>
 #include <sstream>
 #include <string>
 #include <vector>

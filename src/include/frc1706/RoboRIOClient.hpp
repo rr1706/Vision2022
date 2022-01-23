@@ -1,3 +1,4 @@
+#pragma once
 #include "Poco/Net/DatagramSocket.h"
 #include "Poco/Net/SocketAddress.h"
 #include "Poco/Types.h"

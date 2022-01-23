@@ -1,8 +1,13 @@
+#pragma once
+#include "frc1706/RoboRIOClient.hpp"
+
 #include "opencv2/core/mat.hpp"
 #include "opencv2/core/types.hpp"
 #include "opencv2/videoio.hpp"
 
 #include <future>
+#include <map>
+#include <utility>
 
 namespace frc1706 {
     /**
@@ -12,9 +17,9 @@ namespace frc1706 {
         public:
             /**
              * @param cap the cv::VideoCapture device to use
-             * @param broadcast should this tracker broadcast it's data/video stream
+             * @param client UDP client to connect to the RoboRIO with
              */
-            BallTracker(const cv::VideoCapture &cap, bool broadcast = true);
+            BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client);
             virtual ~BallTracker();
 
             /**
@@ -47,7 +52,23 @@ namespace frc1706 {
 
             // safely _task by changing this once the object goes out of scope 
             bool enabled = true;
-
+            
+            // message to be serialized by msgpack then sent to RoboRIO
+            struct Message {
+                // Current frame encoded to jpg
+                std::vector<uchar> jpg;
+                // 0 = red, 1 = blue
+                std::pair<bool, bool> balls_found;
+                // 0 = closest red ball, 1 = closest blue ball 
+                std::pair<std::map<std::string, double>, std::map<std::string, double>> data = {
+                    {
+                        {"temp", 0}
+                    },
+                    {
+                        {"temp", 0}
+                    }
+                }; 
+            };
         private:
             /**
              * TODO 
@@ -74,7 +95,5 @@ namespace frc1706 {
             std::mutex _current_frame_mutex;
             // Capture device 
             cv::VideoCapture _capture_device;
-            // Should data be sent over the network
-            bool _enable_broadcast;
     };
 };
