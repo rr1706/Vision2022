@@ -53,22 +53,34 @@ namespace frc1706 {
             // safely _task by changing this once the object goes out of scope 
             bool enabled = true;
             
-            // message to be serialized by msgpack then sent to RoboRIO
-            struct Message {
+            /**
+             * message to be serialized by msgpack then sent to RoboRIO
+             */ 
+            static struct Message {
                 // Current frame encoded to jpg
                 std::vector<uchar> jpg;
-                // 0 = red, 1 = blue
-                std::pair<bool, bool> balls_found;
-                // 0 = closest red ball, 1 = closest blue ball 
-                std::pair<std::map<std::string, double>, std::map<std::string, double>> data = {
+                
+                typedef ball std::pair<bool, std::map<std::string, double>>;
+                
+                std::pair<ball, ball> tracker_data = {
                     {
-                        {"temp", 0}
+                        false,
+                        {
+                            {"temp", 0}
+                        }
                     },
                     {
-                        {"temp", 0}
+                        false,
+                        {
+                            {"temp", 0}
+                        }
                     }
-                }; 
+                };
+                
+                // Is this needed?
+                MSGPACK_DEFINE(jpg, ball);
             };
+        
         private:
             /**
              * TODO 
