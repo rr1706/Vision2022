@@ -1,15 +1,10 @@
-project(
-    'RoboRIOClientTester',
-    'cpp',
-    default_options: ['cpp_std=c++11']
-)
-
 opencv = dependency('opencv4')
+json = subproject('nlohmann_json').get_variable('nlohmann_json_dep')
 
 program = executable(
     'RoboRIOClientTester',
     ['Server.cpp'],
-    dependencies: [opencv]
+    dependencies: [opencv, json]
 )
 
 test('basic', program, suite: 'network')

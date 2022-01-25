@@ -1,53 +1,83 @@
-#include "Poco/Net/SocketAddress.h"
-#include "Poco/Net/UDPClient.h"
-#include "Poco/Net/IPAddress.h"
-#include "Poco/Exception.h"
-
-#include "msgpack.hpp"
-
+#include "opencv2/core.hpp"
+#include "opencv2/core/mat.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 
+#include "nlohmann/json.hpp"
+
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
-#include <msgpack/v3/adaptor/detail/cpp11_msgpack_tuple_decl.hpp>
-#include <msgpack/v3/object_fwd_decl.hpp>
-#include <sstream>
-#include <chrono>
+#include <memory>
 #include <vector>
 
-using namespace Poco::Net;
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
-int main() try {
-    SocketAddress address{"127.0.0.1", 1706};
-    DatagramSocket dg_socket{address};
-    char buf[512];
-    
-    std::cout << "Listening on " << address.toString() << std::endl; 
+#define PORT 1706
+#define MAX_MSG_SIZE 1024 // half kb
 
-    try {
-        while(true) {
-            SocketAddress sender;
-            int data = dg_socket.receiveFrom(buf, sizeof(buf) - 1, sender);
-            buf[data] = '\0';
-            //std::vector<uchar> jpg;
-            std::string msg_data(buf); // Do I need to cast this to a string here?
-            msgpack::object msg = msgpack::unpack(msg_data.data(), msg_data.size()).get();
+using namespace nlohmann;
 
-            //msg.convert(jpg); 
+int main() {
+	int sock;
+	struct sockaddr_in srv_addr, cli_addr;
+	char buffer[MAX_MSG_SIZE];
 
-            cv::Mat image = cv::imdecode(cv::Mat(msg.as<std::vector<uchar>>()), 1);
+    // Creating socket file descriptor
+	if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
+		std::cerr << "socket failed\n";
+		return EXIT_FAILURE;
+	}
+	
+	memset(&srv_addr, 0, sizeof(srv_addr));
+	memset(&cli_addr, 0, sizeof(cli_addr));
+   
+	srv_addr.sin_family = AF_INET;
+	srv_addr.sin_addr.s_addr = INADDR_ANY;
+	srv_addr.sin_port = htons( PORT );
 
-            cv::imshow(sender.toString(), image);
-        }
-    } catch(const msgpack::type_error &err) {
-        std::cerr << err.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+	// Forcefully attaching socket to the port
+	if (bind(sock, (struct sockaddr *)&srv_addr, sizeof(srv_addr))<0) {
+		std::cerr << "bind failed\n";
+		return EXIT_FAILURE;
+	}
 
+	socklen_t len;
+	int n = 0;
+
+	len = sizeof(cli_addr);
+	while(true) {
+		while(n < MAX_MSG_SIZE) {
+			n += recvfrom(
+				sock, 
+				(char *)buffer, 
+				MAX_MSG_SIZE, 
+				MSG_WAITALL, 
+				(struct sockaddr *) &cli_addr, 
+				&len
+			);
+			buffer[n] = '\0';
+
+			std::cout << buffer << std::endl;
+			std::cout << n << " of " << MAX_MSG_SIZE << std::endl;
+		}
+		if(n > 0) try {
+			std::cout << "Recived message\n";
+			
+			std::ifstream file(buffer);
+			json obj;
+			file >> obj;	
+			
+			std::cout << obj.dump() << std::endl;
+
+			//cv::Mat img = cv::imdecode(, 0); 
+    		//cv::imshow("image", img);
+		} catch(const cv::Exception &err) {
+			std::cerr << err.what() << std::endl;
+			return EXIT_FAILURE;
+		}
+	}
     return EXIT_SUCCESS;
-
-} catch(Poco::Exception &err) {
-    std::cerr << err.displayText() << std::endl;
-    return EXIT_FAILURE;
 }

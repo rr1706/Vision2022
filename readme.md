@@ -4,13 +4,16 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
 ## Setup guide
 
-requirements: OpenCV 4(libopencv-dev), Poco(libpoco-dev), MsgPack(libmsgpack-dev), SpdLog(libspdlog-dev)  
-1. Download dependancies
-2. TODO
+1. `pip install -r requirements.txt`
+2. Add python module bin directory to path
+3. `meson builddir/`
+4. `meson compile -C builddir/`
 
-## Benchmarks
+#### To deploy
 
-- Networking solution: 10 transfers in 2200ms
+1. `meson builddir/ --cross-file resources/meson/jetson-nano.ini`
+2. `meson compile -C builddir/`
+3. `meson compile deploy -C builddir/`
 
 ## Resources
 

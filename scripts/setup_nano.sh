@@ -7,7 +7,7 @@ echo "frc ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # why does it ship with docker?
 apt remove docker
 apt update && apt upgrade
-sudo apt install libopencv-dev libpoco-dev
+sudo apt install libopencv-dev
 
 # Enable fan
 jetson_clocks --fan

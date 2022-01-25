@@ -24,7 +24,7 @@ twodpoints = [] # 2d points in image plane.
 for file in images:
     img = cv2.imread(file)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #print(gray)
+    
     # Find the chess board corners
     ret, corners = cv2.findChessboardCorners(gray, CHESSBOARD, None)
     

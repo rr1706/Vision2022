@@ -1,3 +1,5 @@
 {
-    "mesonbuild.configureOnOpen": true
+    "mesonbuild.configureOnOpen": true,
+    "code-runner.customCommand": "builddir/vision",
+    "code-runner.cwd": "."
 }

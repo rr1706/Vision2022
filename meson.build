@@ -10,32 +10,28 @@ frc_year = '2022'
 jetson_user = 'frc'
 jetson_ip = 'jetson'
 
-# System dependancies
-threads = dependency('threads')
-# See if this ever becomes available as a wrap
+# Dependancies
 opencv = dependency('opencv4')
-
-# Dependancies added via wrap
-spdlog = subproject('spdlog')
-json = subproject('nlohmann_json')
-#glib = subproject('glib')
+threads = dependency('threads')
+spdlog = subproject('spdlog').get_variable('spdlog_dep')
+lws = subproject('libwebsockets').get_variable('libwebsockets_dep')
+json = subproject('nlohmann_json').get_variable('nlohmann_json_dep')
 
 # Create the main executable to be deployed
 vision = executable(
     'vision',
     [
-        'src/Main.cpp', 
-        'src/BallTracker.cpp', 
-        'src/RoboRIOClient.cpp', 
-        'src/MathUtils.cpp', 
-        'src/TapeTracker.cpp'
+        'source/Main.cpp', 
+        'source/TapeTracker.cpp',
+        'source/BallTracker.cpp', 
+        'source/RoboRIOClient.cpp' 
     ],
-    dependencies: [opencv, threads],
-    include_directories: include_directories('src/include')
+    dependencies: [opencv, json, lws, spdlog, threads],
+    include_directories: include_directories('source/include')
 )
 
 # Add test apps as subprojects
-#subproject('tests/RoboRIOClientTester')
+subproject('tests')
 
 # Add test targets
 test('basic', vision)
