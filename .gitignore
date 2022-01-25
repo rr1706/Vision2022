@@ -1,29 +1,43 @@
-*.d
-
+# Output and cache directores
 builddir/
 .clangd/
 .cache/
 
+#
+*.d
+
+# 
 *.slo
 *.lo
 *.o
 *.obj
 
+# Pre-compiled headers
 *.gch
 *.pch
 
+# Dynamic libraries
 *.so
 *.dylib
 *.dll
 
+#
 *.mod
 *.smod
 
+# Archives
 *.lai
 *.la
 *.a
 *.lib
 
+# Outputs
 *.exe
 *.out
 *.app
+
+# Ignore all in subprojects except listed few
+/subprojects/*
+!/subprojects/*.wrap
+!/subprojects/tools/
+!/subprojects/tests/

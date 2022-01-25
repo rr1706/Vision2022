@@ -7,19 +7,25 @@
 
 #include <future>
 #include <map>
+#include <tuple>
 #include <utility>
+#include <vector>
+
+// Constants in mm
+#define BALL_DIAMETER 241.3
+#define FOCAL_LENGTH 1 // Find this
 
 namespace frc1706 {
     /**
-     * @brief takes a cv::VideoCapture then runs a ball tracking algo on it async 
+     * @brief  
      */
     class BallTracker {
         public:
             /**
              * @param cap the cv::VideoCapture device to use
-             * @param client UDP client to connect to the RoboRIO with
+             * @param client UDP client connection to use
              */
-            BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client);
+            BallTracker(const cv::VideoCapture &cap);// RoboRIOClient &client
             virtual ~BallTracker();
 
             /**
@@ -29,71 +35,53 @@ namespace frc1706 {
             cv::Mat process(const std::pair<cv::Scalar, cv::Scalar> &range);
 
             /**
-             * TODO
+             * @brief
+             * @param 
+             * @param 
+             * @param 
+             * @return 
              */
-            cv::Mat track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color = cv::Scalar(255, 0, 0));
+            std::tuple<cv::Mat, double, double> track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color = cv::Scalar(255, 0, 0));
 
             /**
-             * @brief runs process() then uses the resulting cv::Mat to pull data,
-             *        broadcast image aswell if it is enabled.
+             * @brief Launches BallTracker::_run() as an async task
              */
             void run();
             
             /**
-             * @brief getter method for _current_frame, locks with std::mutex
+             * @brief Getter method for _current_frame, locks with std::mutex
+             * @param show_tracking Pull the current frame with tracking ui
              * @return The current cv::Mat that is being processed
              */
             cv::Mat getCurrentFrame(bool show_tracking = false);
 
             /**
-             * TODO
+             * @brief 
+             * @param win_name
+             * @param show_tracking
              */
             void show(const std::string &win_name, bool show_tracking = false);
 
-            // safely _task by changing this once the object goes out of scope 
+            // Safely end _task by changing this once the object goes out of scope 
             bool enabled = true;
-            
-            /**
-             * message to be serialized by msgpack then sent to RoboRIO
-             */ 
-            static struct Message {
-                // Current frame encoded to jpg
-                std::vector<uchar> jpg;
-                
-                typedef ball std::pair<bool, std::map<std::string, double>>;
-                
-                std::pair<ball, ball> tracker_data = {
-                    {
-                        false,
-                        {
-                            {"temp", 0}
-                        }
-                    },
-                    {
-                        false,
-                        {
-                            {"temp", 0}
-                        }
-                    }
-                };
-                
-                // Is this needed?
-                MSGPACK_DEFINE(jpg, ball);
-            };
         
         private:
             /**
-             * TODO 
+             * @brief
+             * @param frame 
              */
             void _broadcast(const cv::Mat &frame);
             
             /**
-             * @brief internal static method for run(), allows it to be run async
+             * @brief Internal static method for run(), allows it to be run async
+             * @param self
              */
             static void _run(BallTracker* self);
         
             /**
-             * @brief setter method for _current_frame, locks it with an std::mutex
+             * @brief Setter method for _current_frame, locks it with an std::mutex
+             * @param new_frame
+             * @param tracked_frame
              */
             void _setCurrentFrame(const cv::Mat &new_frame, bool tracked_frame = false);
 

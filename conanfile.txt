@@ -1,9 +1,0 @@
-[requires]
-poco/1.11.1
-opencv/4.5.3
-
-# Overrides
-zstd/1.5.1
-
-[generators]
-pkg_config

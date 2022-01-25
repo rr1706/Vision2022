@@ -10,14 +10,15 @@ frc_year = '2022'
 jetson_user = 'frc'
 jetson_ip = 'jetson'
 
-# Used to manually find libraries(the -l flag) 
-cpp = meson.get_compiler('cpp')
-
-# Find dependancies
-opencv = dependency('opencv4')
-msgpack = dependency('msgpack')
+# System dependancies
 threads = dependency('threads')
-poconet = [cpp.find_library('PocoNet'), cpp.find_library('PocoFoundation')]
+# See if this ever becomes available as a wrap
+opencv = dependency('opencv4')
+
+# Dependancies added via wrap
+spdlog = subproject('spdlog')
+json = subproject('nlohmann_json')
+#glib = subproject('glib')
 
 # Create the main executable to be deployed
 vision = executable(
@@ -29,12 +30,12 @@ vision = executable(
         'src/MathUtils.cpp', 
         'src/TapeTracker.cpp'
     ],
-    dependencies: [opencv, poconet, threads],
+    dependencies: [opencv, threads],
     include_directories: include_directories('src/include')
 )
 
 # Add test apps as subprojects
-subproject('PocoNetClientTester')
+#subproject('tests/RoboRIOClientTester')
 
 # Add test targets
 test('basic', vision)
@@ -42,5 +43,5 @@ test('basic', vision)
 # Custom task
 run_target('deploy', command: ['sh', 'scripts/deploy.sh', team_number, frc_year])
 run_target('setup', command: ['sh', 'scripts/setup.sh', team_number, frc_year])
-run_target('unittest', command: ['sh', 'scripts/test.sh', team_number, frc_year])
+run_target('runTest', command: ['sh', 'scripts/test.sh', team_number, frc_year])
 

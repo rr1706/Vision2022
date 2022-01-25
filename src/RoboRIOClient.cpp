@@ -1,23 +1,5 @@
 #include "frc1706/RoboRIOClient.hpp"
-
-#include "opencv2/core.hpp"
-#include "opencv2/core/mat.hpp"
-#include "opencv2/imgcodecs.hpp"
-
-#include "Poco/Net/SocketAddress.h"
-#include <Poco/Net/IPAddress.h>
-#include <Poco/Exception.h>
-#include "Poco/Types.h"
-
-#include "msgpack.hpp"
-
-#include <cstdlib>
-#include <iostream>
-#include <msgpack/v3/object_fwd_decl.hpp>
-#include <sstream>
-#include <string>
-#include <vector>
-
+/* 
 using namespace Poco::Net;
 
 namespace frc1706 {
@@ -60,4 +42,4 @@ namespace frc1706 {
         std::cerr << err.displayText() << std::endl;
         return EXIT_FAILURE;
     }
-};
+}; */

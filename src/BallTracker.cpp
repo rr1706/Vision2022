@@ -1,4 +1,5 @@
 #include "frc1706/BallTracker.hpp"
+#include "frc1706/RoboRIOClient.hpp"
 
 #include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
@@ -7,6 +8,7 @@
 #include "opencv2/videoio.hpp"
 #include "opencv2/imgproc.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <stdexcept>
 #include <future>
@@ -17,7 +19,7 @@
 #include <vector>
 
 namespace frc1706 {
-    BallTracker::BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client) :
+    BallTracker::BallTracker(const cv::VideoCapture &cap) ://, RoboRIOClient &client
         _capture_device(cap) {}
     
     BallTracker::~BallTracker() {
@@ -25,6 +27,8 @@ namespace frc1706 {
         this->_capture_device.release();
     }
     
+//----------------------------------------------------------------------------------------------
+
     cv::Mat BallTracker::process(const std::pair<cv::Scalar, cv::Scalar> &range) {
         if(this->getCurrentFrame().empty()) {
             throw std::runtime_error("Current frame is empty, unable to process");
@@ -43,8 +47,9 @@ namespace frc1706 {
         return threshed;
     }
 
-    cv::Mat BallTracker::track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color) {
-       
+//----------------------------------------------------------------------------------------------
+
+    std::tuple<cv::Mat, double, double> BallTracker::track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color) {
         cv::Mat final(clean);
         std::vector<std::vector<cv::Point>> cnts;
         cv::Point2f ball_center_flat;
@@ -53,16 +58,28 @@ namespace frc1706 {
         cv::findContours(threshed, cnts, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         
         if(!cnts.empty()) {
-            //std::vector<cv::Point2i> cnt = cv::max(cnts.);
-		    /*
+            std::vector<cv::Point2i> largest_cnt;
             for(std::vector<cv::Point> cnt : cnts) {
-                cv::minEnclosingCircle(cnt, ball_center_flat, radius);
-                cv::circle(final, ball_center_flat, radius, color, 3);
-            } */
+                if(cnt.size() > largest_cnt.size()) {
+                    largest_cnt = cnt;
+                }
+            }
+
+            cv::minEnclosingCircle(largest_cnt, ball_center_flat, radius);
+            cv::circle(final, ball_center_flat, radius, color, 3);
+            
+            // D’ = (W x F) / P
+            double distance = (BALL_DIAMETER * FOCAL_LENGTH) / (radius * 2);
+            // angle = atan( (X-cx) / f)
+            double angle = std::atan((final.cols - (final.cols / 2) / FOCAL_LENGTH));
+            
+            return {final, distance, angle};
         }
 
-        return final;
+        return {final, NULL, NULL};
     }
+
+//----------------------------------------------------------------------------------------------
 
     void BallTracker::run() {
         /**
@@ -72,12 +89,16 @@ namespace frc1706 {
         this->_task = std::async(std::launch::async, BallTracker::_run, this);
     }
 
+//----------------------------------------------------------------------------------------------
+
     void BallTracker::show(const std::string &win_name, bool show_tracking) {
         // If frame not empty display it
         if(!this->getCurrentFrame().empty())
             cv::imshow(win_name, this->getCurrentFrame(show_tracking));
     
     }
+
+//----------------------------------------------------------------------------------------------
     
     cv::Mat BallTracker::getCurrentFrame(bool show_tracking) {
         std::lock_guard<std::mutex> lock(this->_current_frame_mutex);
@@ -86,6 +107,8 @@ namespace frc1706 {
         }
         return this->_current_frame;
     }
+
+//----------------------------------------------------------------------------------------------
     
     void BallTracker::_setCurrentFrame(const cv::Mat &new_frame, bool tracked_frame) {
         std::lock_guard<std::mutex> lock(this->_current_frame_mutex);
@@ -96,16 +119,20 @@ namespace frc1706 {
         this->_current_frame = new_frame;
     }
 
+//----------------------------------------------------------------------------------------------
+
     void BallTracker::_broadcast(const cv::Mat &frame) {
         return;
     }
+
+//----------------------------------------------------------------------------------------------
 
     void BallTracker::_run(BallTracker* self) {
         // OpenCV defaults to BGR not RGB
         // min/max color values for each ball color
         std::pair<cv::Scalar, cv::Scalar> blue = {
-            cv::Scalar(0, 0, 0), 
-            cv::Scalar(255, 255, 255)
+            cv::Scalar(81, 58, 31), // rgb(31,58,81) 
+            cv::Scalar(173, 142, 62) // rgb(62,142,173)
         };
         std::pair<cv::Scalar, cv::Scalar> red = {
             cv::Scalar(0, 0, 0), 
@@ -128,11 +155,18 @@ namespace frc1706 {
             // TODO: Make these run in parallel
             cv::Mat processed_blue(self->process(blue));
             //cv::Mat processed_red(self->process(red));
+
+#ifdef DISPLAY 
+            cv::imshow("threshed", processed_blue);
+#endif // DISPLAY 
+
+            std::tuple<cv::Mat, double, double> final(self->track(processed_blue, self->getCurrentFrame()));
             
-            cv::Mat final(self->track(processed_blue, self->getCurrentFrame()));
-            
-            if (!final.empty())
-                self->_setCurrentFrame(final, true);
+            if (!std::get<0>(final).empty() )
+                self->_setCurrentFrame(std::get<0>(final), true);
+
+            std::cout << "Distance to object: " << std::get<1>(final) << std::endl;
+            std::cout << "Angle to object: " << std::get<2>(final) << std::endl;
 
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
