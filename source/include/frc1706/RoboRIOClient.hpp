@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -20,8 +21,8 @@ namespace frc1706 {
             
         private:
             int _connect(const std::string &ip, const uint16_t &port);
-            int _sock = 0, valread; // What's valread?????        
+            int _sock = 0;        
 	        struct sockaddr_in _addr;
-	        char buffer[1024] = {0};
+            std::array<char, 1024> _buf;
     };
 }; // namespace frc1706

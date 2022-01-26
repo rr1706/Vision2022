@@ -58,26 +58,28 @@ int main() {
 				(struct sockaddr *) &cli_addr, 
 				&len
 			);
+		
 			buffer[n] = '\0';
 
 			std::cout << buffer << std::endl;
-			std::cout << n << " of " << MAX_MSG_SIZE << std::endl;
-		}
-		if(n > 0) try {
-			std::cout << "Recived message\n";
-			
-			std::ifstream file(buffer);
-			json obj;
-			file >> obj;	
-			
-			std::cout << obj.dump() << std::endl;
+			//std::cout << n << " of " << MAX_MSG_SIZE << std::endl;
+			if(n >= MAX_MSG_SIZE) try {
+				std::cout << "Recived message\n";
+				
+				//std::ifstream file(buffer);
+				json obj = json::parse(buffer);
+				//file >> obj;		
 
-			//cv::Mat img = cv::imdecode(, 0); 
-    		//cv::imshow("image", img);
-		} catch(const cv::Exception &err) {
-			std::cerr << err.what() << std::endl;
-			return EXIT_FAILURE;
-		}
+				std::cout << obj.dump() << std::endl;
+	
+				//cv::Mat img = cv::imdecode(, 0); 
+    			//cv::imshow("image", img);
+			} catch(const cv::Exception &err) {
+				std::cerr << err.what() << std::endl;
+				return EXIT_FAILURE;
+			}
+		} 
+		
 	}
     return EXIT_SUCCESS;
 }

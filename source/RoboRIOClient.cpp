@@ -28,20 +28,16 @@ namespace frc1706 {
         std::vector<uchar> jpg_src;
         
         json obj;
-        std::ofstream file;
 
-        file << std::setw(4) << obj << std::endl;
-        
         if(cv::imencode(".jpg", img, jpg_src)) {
             obj["img"] = jpg_src;
-
-            int offset = 0;
-            int r;
-            while (offset < sizeof(file)) {
-                r = send(this->_sock, file.rdbuf()+offset, sizeof(obj)-offset, 0);
-                if (r <= 0) break;
-                offset += r;
-               std::cout << "Sent message\n";
+            
+            int offset = 0; // Total bytes sent
+            int bytes_sent;
+            while (offset <= obj.size()) {
+                bytes_sent = send(this->_sock, obj.dump().c_str(), this->_buf.size(), 0);
+                offset += bytes_sent;
+                std::cout << "Sent " << offset << " of " << sizeof(this->_buf.size()) << " bytes\n";
             }
         } else {
             return EXIT_FAILURE;
