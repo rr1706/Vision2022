@@ -41,3 +41,4 @@ builddir/
 !/subprojects/*.wrap
 !/subprojects/tools/
 !/subprojects/tests/
+!/subprojects/utilities/
