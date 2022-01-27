@@ -9,7 +9,7 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
     4. `meson compile -C builddir/` re-run this command to recompile
 - ### Jetson Nano
     1. `conan install . -if builddir/conan -pr:b=resources/conan/profiles/jetson-nano --build missing`
-    2. `meson builddir/ --cross-file resources/meson/jetson-nano.ini` use the `--reconfigure` flag if you've already built for native
+    2. `meson builddir/ --buildtype release --cross-file resources/meson/jetson-nano.ini` use the `--reconfigure` flag if you've already built for native
     3. `meson compile -C builddir/`
     4. `meson compile deploy -C builddir/`
 
