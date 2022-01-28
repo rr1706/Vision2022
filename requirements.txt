@@ -1,4 +1,7 @@
 opencv-python
+paramiko
 numpy
+conan
 meson
 ninja
+scp

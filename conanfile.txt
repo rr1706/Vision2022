@@ -1,0 +1,12 @@
+[requires]
+opencv/4.5.3
+
+[generators]
+pkg_config
+
+[options]
+
+[imports]
+lib, *.so -> ../ # Copies all so files from packages lib folder to my "bin" folder
+bin, *.dll -> ../ # Copies all dll files from packages bin folder to my "bin" folder
+lib, *.dylib* -> ../ # Copies all dylib files from packages lib folder to my "bin" folder

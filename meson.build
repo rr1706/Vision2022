@@ -2,7 +2,22 @@ project(
     'Vision2022',
     'cpp',
     version: '0.2.0',
-    default_options: ['cpp_std=c++11']
+    # https://mesonbuild.com/Builtin-options.html
+    default_options: [
+        'cpp_std=c++11', 
+        'backend_max_links=10', 
+        'layout=flat', 
+        #'debug=true', # does this get overrriden?
+        #'strip=true',
+        'unity=on',
+        'unity_size=10',
+        'warning_level=3',
+        'b_pie=true',
+        'b_lto_threads=4',
+        'b_lto=true',
+        'b_colorout=true'
+        # look at sanitize
+     ]
 )
 
 team_number = '1706'
