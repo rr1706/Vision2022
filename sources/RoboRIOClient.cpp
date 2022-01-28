@@ -5,6 +5,7 @@
 
 #include "nlohmann/json.hpp"
 
+#include <cstddef>
 #include <cstdlib>
 #include <fstream>
 #include <string>
@@ -24,21 +25,33 @@ namespace frc1706 {
 // -------------------------------------------------------------------------------------------- 
 
     int RoboRIOClient::sendMessage() {
-        cv::Mat img = cv::imread("/home/will/Pictures/trees.png");
+        cv::Mat img = cv::imread("/home/will/Pictures/Webcam/2022-01-24-170422.jpg");
         std::vector<uchar> jpg_src;
-        
         json obj;
 
         if(cv::imencode(".jpg", img, jpg_src)) {
             obj["img"] = jpg_src;
-            
-            int offset = 0; // Total bytes sent
-            int bytes_sent;
-            while (offset <= obj.size()) {
-                bytes_sent = send(this->_sock, obj.dump().c_str(), this->_buf.size(), 0);
+
+            std::cout << obj.dump() << std::endl;
+
+            // Total bytes sent
+            size_t bytes_sent = 0;
+            // While the offset is less then size of obj send the obj in kb sized packets 
+            for(size_t offset = 0; offset < obj.dump().size();) {
+                bytes_sent = send(
+                    this->_sock, 
+                    obj.dump().substr(offset, offset+this->_buf.size()).c_str(), 
+                    this->_buf.size(), 
+                    0
+                ); 
                 offset += bytes_sent;
-                std::cout << "Sent " << offset << " of " << sizeof(this->_buf.size()) << " bytes\n";
+
+                std::cout << "Sent " << offset << " of " << obj.dump().size() << " bytes\n";
             }
+            // Send a message footer to indecate that the message is over
+            std::cout << (char)'e' << std::endl;
+            send(this->_sock, 0x00, 1, 0);
+            std::cout << "Finished sending message\n"; 
         } else {
             return EXIT_FAILURE;
         }

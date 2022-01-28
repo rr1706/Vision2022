@@ -7,17 +7,16 @@
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/videoio.hpp"
 
-#include <cstdlib>
+#include <array>
 #include <iostream>
-
-#define DISPLAY // Make this a compile option     
 
 using namespace frc1706;
 
 int main() {
     // Connect to robot first
     RoboRIOClient client;
-    
+    client.sendMessage(); 
+
     /**
      * Create a cv::VideoCaptureProperties list to store the parameters of
      * the cameras used
@@ -47,7 +46,6 @@ int main() {
             std::exit(EXIT_FAILURE);
         }
 #endif
-        client.sendMessage(); 
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
     }

@@ -25,7 +25,7 @@ namespace frc1706 {
              * @param cap the cv::VideoCapture device to use
              * @param client UDP client connection to use
              */
-            BallTracker(const cv::VideoCapture &cap);// RoboRIOClient &client
+            BallTracker(const cv::VideoCapture &cap); // RoboRIOClient &client
             virtual ~BallTracker();
 
             /**

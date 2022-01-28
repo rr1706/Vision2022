@@ -20,13 +20,13 @@ json = subproject('nlohmann_json').get_variable('nlohmann_json_dep')
 vision = executable(
     'vision',
     [
-        'source/Main.cpp', 
-        'source/TapeTracker.cpp',
-        'source/BallTracker.cpp', 
-        'source/RoboRIOClient.cpp' 
+        'sources/Main.cpp', 
+        'sources/TapeTracker.cpp',
+        'sources/BallTracker.cpp', 
+        'sources/RoboRIOClient.cpp' 
     ],
     dependencies: [opencv, json, spdlog, threads],
-    include_directories: include_directories('source/include')
+    include_directories: include_directories('sources/include')
 )
 
 # Add test apps as subprojects
