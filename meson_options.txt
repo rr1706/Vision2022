@@ -1,1 +1,0 @@
-option('display', type: 'boolean', value: false, description: 'Enable usage of cv::imshow()')

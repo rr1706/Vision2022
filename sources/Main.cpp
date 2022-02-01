@@ -1,6 +1,8 @@
 #include "frc1706/RoboRIOClient.hpp"
 #include "frc1706/BallTracker.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
 #include "opencv2/highgui.hpp"
@@ -13,33 +15,34 @@
 using namespace frc1706;
 
 int main() {
-    // Connect to robot first
-    RoboRIOClient client;
-    client.sendMessage(); 
+    // Change log pattern
+    spdlog::set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
 
+    spdlog::info("Attempting a connection to the robot");
+    RoboRIOClient client();
+    
     /**
      * Create a cv::VideoCaptureProperties list to store the parameters of
      * the cameras used
      */ 
-    //std::vector<cv::VideoCaptureProperties> ball_cam_props;
-    //ball_cam_props.set(cv::CAP_PROP_FRAME_WIDTH, 480);
-    //ball_cam_props.set(cv::CAP_PROP_FRAME_HEIGHT, 640);
+    const std::vector<int> ball_cam_props = {
+        cv::CAP_PROP_FRAME_WIDTH, 480,
+        cv::CAP_PROP_FRAME_HEIGHT, 640
+    };
 
-    // Create tracker objects
-    // TODO: how can these be more easily changed on the fly?
-    //BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_V4L2));
-    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2), client);
+    spdlog::info("Creating trackers");
+    BallTracker ball_cam(cv::VideoCapture cap(0, cv::CAP_V4L2, ball_cam_props), client);
+    //TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_V4L2, tape_cam_props), client);
 
-    // Run the tracking algorithms, these run async, they also send the data
-    //ball_cam.run();
+    spdlog::info("Running trackers");
+    ball_cam.run();
     //tape_cam.run();
-
 
     // Loop until esc key is pressed 
     while(true) {
 #ifdef DISPLAY
         try {
-            //ball_cam.show("Ball Camera", true);
+            ball_cam.show("Ball Camera", true);
             //cv::imshow("Tape Camera", tape_cam.getCurrentFrame());
         } catch(const cv::Exception &err) {
             std::cerr << err.what();
@@ -49,7 +52,6 @@ int main() {
         char esc = cv::waitKey(33);
         if(esc == 27) { break; }
     }
-
-    std::cout << "Exiting\n";
+    spdlog::info("Exiting");
     return EXIT_SUCCESS; 
 }

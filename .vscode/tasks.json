@@ -6,12 +6,12 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "./builddir/vision",
+            "command": "./builddir/meson-out/vision",
             "problemMatcher": []
         },
         {
             "type": "meson",
-            "target": "vision",
+            "target": "meson-out/vision",
             "mode": "build",
             "group": {
                 "kind": "build",

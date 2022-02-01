@@ -4,14 +4,15 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 ## Setup guide
 - ### Native 
     1. `pip install -r requirements.txt` ensure pip bin directory is added to path
-    2. `conan install . -if builddir/conan` or install opencv 4 with your package manager
+    2. `conan install . -if builddir/conan` or install opencv 4/msgpack with your package manager
     3. `meson builddir/`
     4. `meson compile -C builddir/` re-run this command to recompile
 - ### Jetson Nano
+    1. `pip install -r requirements.txt` ensure pip bin directory is added to path
     1. `conan install . -if builddir/conan -pr:b=resources/conan/profiles/jetson-nano --build missing`
     2. `meson builddir/ --buildtype release --cross-file resources/meson/jetson-nano.ini` use the `--reconfigure` flag if you've already built for native
     3. `meson compile -C builddir/`
-    4. `meson compile deploy -C builddir/`
+    4. `meson compile deploy -C builddir/` To deploy if you're connected to the nano
 
 ## Resources
 - [Jetson nano cross compiler toolchain](https://developer.nvidia.com/embedded/dlc/l4t-gcc-7-3-1-toolchain-64-bit-32-1)

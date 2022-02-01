@@ -25,9 +25,9 @@ namespace frc1706 {
              * @param cap the cv::VideoCapture device to use
              * @param client UDP client connection to use
              */
-            BallTracker(const cv::VideoCapture &cap); // RoboRIOClient &client
+            BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client); 
             virtual ~BallTracker();
-
+            
             /**
              * @brief process the current frame then return it as a cv::Mat 
              * @return a cv::Mat that is the final processed image/cv::Mat 
@@ -37,11 +37,9 @@ namespace frc1706 {
             /**
              * @brief
              * @param 
-             * @param 
-             * @param 
              * @return 
              */
-            std::tuple<cv::Mat, double, double> track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color = cv::Scalar(255, 0, 0));
+            std::map<std::string, double> track(const cv::Mat &threshed);
 
             /**
              * @brief Launches BallTracker::_run() as an async task
@@ -62,15 +60,12 @@ namespace frc1706 {
              */
             void show(const std::string &win_name, bool show_tracking = false);
 
-            // Safely end _task by changing this once the object goes out of scope 
-            bool enabled = true;
         
         private:
             /**
              * @brief
-             * @param frame 
              */
-            void _broadcast(const cv::Mat &frame);
+            void _broadcast();
             
             /**
              * @brief Internal static method for run(), allows it to be run async

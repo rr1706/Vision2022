@@ -1,5 +1,4 @@
 {
     "mesonbuild.configureOnOpen": true,
-    "code-runner.customCommand": "builddir/vision",
-    "code-runner.cwd": "."
+    "python.formatting.provider": "black"
 }

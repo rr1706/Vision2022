@@ -19,11 +19,17 @@
 #include <vector>
 
 namespace frc1706 {
-    BallTracker::BallTracker(const cv::VideoCapture &cap) ://, RoboRIOClient &client
-        _capture_device(cap) {}
+    // https://docs.opencv.org/3.4/d9/d61/tutorial_py_morphological_ops.html
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5, 5));
+
+    // Safely end _task by changing this once the object goes out of scope 
+    bool enabled = true;
     
+    BallTracker::BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client) :
+        _capture_device(cap) {}
+ 
     BallTracker::~BallTracker() {
-        this->enabled = false;
+        enabled = false;
         this->_capture_device.release();
     }
     
@@ -33,31 +39,37 @@ namespace frc1706 {
         if(this->getCurrentFrame().empty()) {
             throw std::runtime_error("Current frame is empty, unable to process");
         }
-
-        cv::Mat threshed;
+        
+        cv::Mat threshed, hsv;
         
         // gaussian blur is broken for some reason
         //cv::GaussianBlur(this->getCurrentFrame(), blurred, cv::Size(10, 10), 0);
+
+        // Used hsv color space as it's better for color tracking 
+        cv::cvtColor(this->getCurrentFrame(), hsv, cv::COLOR_BGR2HSV);
+
+        // Thresh the image with the range provided 
+        cv::inRange(hsv, range.first, range.second, threshed);
         
-        // hsv is in question because we need to give the pose of the closest(largest) red and blue ball
-        //cv::cvtColor(blurred, hsv, cv::COLOR_BGR2HSV);
-       
-        cv::inRange(this->getCurrentFrame(), range.first, range.second, threshed);
-        
+        // "Open" the threshed image(erode followed by dilate)
+        cv::morphologyEx(threshed, threshed, cv::MORPH_OPEN, kernel);
+        cv::morphologyEx(threshed, threshed, cv::MORPH_OPEN, kernel); // Is there a point to doing this twice
+
         return threshed;
     }
 
 //----------------------------------------------------------------------------------------------
 
-    std::tuple<cv::Mat, double, double> BallTracker::track(const cv::Mat &threshed, const cv::Mat &clean, const cv::Scalar &color) {
-        cv::Mat final(clean);
+    std::map<std::string, double> BallTracker::track(const cv::Mat &threshed) {
         std::vector<std::vector<cv::Point>> cnts;
         cv::Point2f ball_center_flat;
         float radius;
 
+        // Find all external contours
         cv::findContours(threshed, cnts, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         
         if(!cnts.empty()) {
+            // Find the largest contour
             std::vector<cv::Point2i> largest_cnt;
             for(std::vector<cv::Point> cnt : cnts) {
                 if(cnt.size() > largest_cnt.size()) {
@@ -65,18 +77,23 @@ namespace frc1706 {
                 }
             }
 
+            // Focus the largets contour
             cv::minEnclosingCircle(largest_cnt, ball_center_flat, radius);
-            cv::circle(final, ball_center_flat, radius, color, 3);
+            //cv::circle(final, ball_center_flat, radius, color, 3);
             
             // D’ = (W x F) / P
             double distance = (BALL_DIAMETER * FOCAL_LENGTH) / (radius * 2);
             // angle = atan( (X-cx) / f)
+            // FIXME: Change to object cols
             double angle = std::atan((final.cols - (final.cols / 2) / FOCAL_LENGTH));
             
-            return {final, distance, angle};
+            return {
+                {"distance", distance},
+                {"angle", angle}
+            };
         }
 
-        return {final, NULL, NULL};
+        return {};
     }
 
 //----------------------------------------------------------------------------------------------
@@ -93,14 +110,17 @@ namespace frc1706 {
 
     void BallTracker::show(const std::string &win_name, bool show_tracking) {
         // If frame not empty display it
-        if(!this->getCurrentFrame().empty())
-            cv::imshow(win_name, this->getCurrentFrame(show_tracking));
-    
+        if(!this->getCurrentFrame().empty()) {
+            cv::Mat hsv;
+            cv::cvtColor(this->getCurrentFrame(show_tracking), hsv, cv::COLOR_BGR2HSV);
+            cv::imshow(win_name, hsv);
+        }
     }
 
 //----------------------------------------------------------------------------------------------
     
     cv::Mat BallTracker::getCurrentFrame(bool show_tracking) {
+        // Lock resources on current thread
         std::lock_guard<std::mutex> lock(this->_current_frame_mutex);
         if(show_tracking && !this->_current_frame_tracked.empty()) {
             return this->_current_frame_tracked;
@@ -111,6 +131,7 @@ namespace frc1706 {
 //----------------------------------------------------------------------------------------------
     
     void BallTracker::_setCurrentFrame(const cv::Mat &new_frame, bool tracked_frame) {
+        // Lock resources on current thread
         std::lock_guard<std::mutex> lock(this->_current_frame_mutex);
         if(tracked_frame) {
             this->_current_frame_tracked = new_frame;
@@ -121,7 +142,7 @@ namespace frc1706 {
 
 //----------------------------------------------------------------------------------------------
 
-    void BallTracker::_broadcast(const cv::Mat &frame) {
+    void BallTracker::_broadcast() {
         return;
     }
 
@@ -131,15 +152,15 @@ namespace frc1706 {
         // OpenCV defaults to BGR not RGB
         // min/max color values for each ball color
         std::pair<cv::Scalar, cv::Scalar> blue = {
-            cv::Scalar(81, 58, 31), // rgb(31,58,81) 
-            cv::Scalar(173, 142, 62) // rgb(62,142,173)
+            cv::Scalar(92, 139, 76),  
+            cv::Scalar(115, 210, 175) 
         };
         std::pair<cv::Scalar, cv::Scalar> red = {
-            cv::Scalar(0, 0, 0), 
-            cv::Scalar(255, 255, 255)
+            cv::Scalar(165, 92, 52), 
+            cv::Scalar(175, 218, 213)
         };
         while(true) {
-            if(self->enabled) { 
+            if(enabled) { 
                 cv::Mat next_frame;
                 if(self->_capture_device.read(next_frame)) {
                     std::cout << "Reading next frame for Ball Tracker: " << self << std::endl;
@@ -151,24 +172,26 @@ namespace frc1706 {
                 break; 
             }
 
-
             // TODO: Make these run in parallel
             cv::Mat processed_blue(self->process(blue));
-            //cv::Mat processed_red(self->process(red));
+            cv::Mat processed_red(self->process(red));
 
 #ifdef DISPLAY 
-            cv::imshow("threshed", processed_blue);
+            cv::imshow("threshed blue", processed_blue);
+            cv::imshow("threshed red", processed_blue);
 #endif // DISPLAY 
 
-            std::tuple<cv::Mat, double, double> final(self->track(processed_blue, self->getCurrentFrame()));
+            std::map<std::string, double> final_blue(self->track(processed_blue));
+            std::map<std::string, double> final_red(self->track(processed_red));
             
-            if (!std::get<0>(final).empty() )
-                self->_setCurrentFrame(std::get<0>(final), true);
-
-            std::cout << "Distance to object: " << std::get<1>(final) << std::endl;
-            std::cout << "Angle to object: " << std::get<2>(final) << std::endl;
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+/*             // This isn't right, how can I add both red and blue tracking to the same image?
+            if (!std::get<0>(final_blue).empty())
+                self->_setCurrentFrame(std::get<0>(final_blue), true); 
+            if (!std::get<0>(final_blue).empty())
+                self->_setCurrentFrame(std::get<0>(final_blue), true);
+ */
+            std::cout << "Distance to object: " << final_blue["distance"] << std::endl;
+            std::cout << "Angle to object: " << final_blue["angle"] << std::endl;
         }
     }
 };

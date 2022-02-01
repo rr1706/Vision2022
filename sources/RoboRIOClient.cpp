@@ -3,17 +3,21 @@
 #include "opencv2/core.hpp"
 #include "opencv2/imgcodecs.hpp"
 
-#include "nlohmann/json.hpp"
+#include "msgpack.hpp"
 
 #include <cstddef>
 #include <cstdlib>
 #include <fstream>
+#include <msgpack/v3/adaptor/detail/cpp11_define_array_decl.hpp>
+#include <msgpack/v3/adaptor/detail/cpp11_msgpack_tuple_decl.hpp>
+#include <msgpack/v3/adaptor/map_decl.hpp>
+#include <msgpack/v3/adaptor/nil_decl.hpp>
+#include <msgpack/v3/object_fwd_decl.hpp>
+#include <sstream>
 #include <string>
 #include <iomanip>
 
 #include <sys/socket.h>
-
-using namespace nlohmann;
 
 namespace frc1706 {
     RoboRIOClient::RoboRIOClient(const std::string ip, uint16_t port) {
@@ -26,36 +30,30 @@ namespace frc1706 {
 
     int RoboRIOClient::sendMessage() {
         cv::Mat img = cv::imread("/home/will/Pictures/Webcam/2022-01-24-170422.jpg");
-        std::vector<uchar> jpg_src;
-        json obj;
+        std::vector<uint8_t> jpg;
 
-        if(cv::imencode(".jpg", img, jpg_src)) {
-            obj["img"] = jpg_src;
-
-            std::cout << obj.dump() << std::endl;
-
+        if(cv::imencode(".jpg", img, jpg)) {
+            std::stringstream msg;
+            msgpack::pack(msg, jpg);
+            
             // Total bytes sent
             size_t bytes_sent = 0;
             // While the offset is less then size of obj send the obj in kb sized packets 
-            for(size_t offset = 0; offset < obj.dump().size();) {
+            for(size_t offset = 0; offset < msg.str().size();) {
                 bytes_sent = send(
                     this->_sock, 
-                    obj.dump().substr(offset, offset+this->_buf.size()).c_str(), 
+                    msg.str().substr(offset, offset+this->_buf.size()).c_str(),
                     this->_buf.size(), 
                     0
                 ); 
                 offset += bytes_sent;
 
-                std::cout << "Sent " << offset << " of " << obj.dump().size() << " bytes\n";
+                std::cout << "Sent " << offset << " of " << msg.str().size() << " bytes\n";
             }
-            // Send a message footer to indecate that the message is over
-            std::cout << (char)'e' << std::endl;
-            send(this->_sock, 0x00, 1, 0);
             std::cout << "Finished sending message\n"; 
         } else {
             return EXIT_FAILURE;
         }
-        
         return EXIT_SUCCESS;
     }
 
