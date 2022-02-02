@@ -1,6 +1,6 @@
 [requires]
 opencv/4.5.3
-msgpack/
+msgpack/3.3.0
 
 [generators]
 pkg_config

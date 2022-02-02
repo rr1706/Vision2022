@@ -7,6 +7,7 @@
 
 #include <future>
 #include <map>
+#include <memory>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -16,6 +17,10 @@
 #define FOCAL_LENGTH 1 // Find this
 
 namespace frc1706 {
+    enum Color {
+        blue = 0, red
+    };
+   
     /**
      * @brief  
      */
@@ -39,7 +44,7 @@ namespace frc1706 {
              * @param 
              * @return 
              */
-            std::map<std::string, double> track(const cv::Mat &threshed);
+            std::map<std::string, double> track(const cv::Mat &threshed, const Color &color);
 
             /**
              * @brief Launches BallTracker::_run() as an async task
@@ -65,7 +70,7 @@ namespace frc1706 {
             /**
              * @brief
              */
-            void _broadcast();
+            void _broadcast(std::map<std::string, double> pose);
             
             /**
              * @brief Internal static method for run(), allows it to be run async
@@ -90,5 +95,7 @@ namespace frc1706 {
             std::mutex _current_frame_mutex;
             // Capture device 
             cv::VideoCapture _capture_device;
+            // Networking client to use
+            std::shared_ptr<RoboRIOClient> _net_client;
     };
 };

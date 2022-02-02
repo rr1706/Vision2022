@@ -2,7 +2,7 @@ project(
     'Vision2022',
     'cpp',
     version: '0.2.0',
-    default_options: ['cpp_std=c++11', 'warning_level=3', 'layout=flat']
+    default_options: ['cpp_std=c++17', 'warning_level=3', 'layout=flat']
 )
 
 team_number = '1706'
@@ -20,21 +20,35 @@ spdlog = subproject('spdlog').get_variable('spdlog_dep')
 vision = executable(
     'vision',
     [
-        'sources/Main.cpp', 
-        'sources/TapeTracker.cpp',
-        'sources/BallTracker.cpp', 
-        'sources/ColorSensor.cpp', 
-        'sources/RoboRIOClient.cpp' 
+        'src/Main.cpp', 
+        'src/TapeTracker.cpp',
+        'src/BallTracker.cpp', 
+        'src/ColorSensor.cpp', 
+        'src/RoboRIOClient.cpp' 
     ],
     dependencies: [opencv, msgpack, spdlog, threads],
-    include_directories: include_directories('sources/include')
+    include_directories: include_directories('src/include')
 )
 
 # Add test targets
 test('basic', vision)
 
 # Custom task
-run_target('deploy', command: ['python', 'scripts/deploy.py', team_number, frc_year, user, host])
-run_target('setup', command: ['python', 'scripts/setup.py', team_number, frc_year])
-run_target('runTest', command: ['python', 'scripts/test.py', team_number, frc_year])
-
+run_target('deploy',
+    command: [
+        'python', 
+        'resources/meson/scripts/deploy.py', 
+        team_number, 
+        frc_year, 
+        user, 
+        host
+    ]
+)
+run_target('runTest', 
+    command: [
+        'python', 
+        'resources/meson/scripts/test.py', 
+        team_number, 
+        frc_year
+    ]
+)

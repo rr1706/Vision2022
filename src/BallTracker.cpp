@@ -1,6 +1,7 @@
 #include "frc1706/BallTracker.hpp"
 #include "frc1706/RoboRIOClient.hpp"
 
+#include "opencv2/calib3d.hpp"
 #include "opencv2/core.hpp"
 #include "opencv2/core/mat.hpp"
 #include "opencv2/core/types.hpp"
@@ -8,7 +9,10 @@
 #include "opencv2/videoio.hpp"
 #include "opencv2/imgproc.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include <cmath>
+#include <exception>
 #include <iostream>
 #include <stdexcept>
 #include <future>
@@ -24,9 +28,9 @@ namespace frc1706 {
 
     // Safely end _task by changing this once the object goes out of scope 
     bool enabled = true;
-    
+
     BallTracker::BallTracker(const cv::VideoCapture &cap, RoboRIOClient &client) :
-        _capture_device(cap) {}
+        _capture_device(cap), _net_client(&client) {}
  
     BallTracker::~BallTracker() {
         enabled = false;
@@ -60,9 +64,9 @@ namespace frc1706 {
 
 //----------------------------------------------------------------------------------------------
 
-    std::map<std::string, double> BallTracker::track(const cv::Mat &threshed) {
+    std::map<std::string, double> BallTracker::track(const cv::Mat &threshed, const Color &color) {
         std::vector<std::vector<cv::Point>> cnts;
-        cv::Point2f ball_center_flat;
+        cv::Point2f ball_center;
         float radius;
 
         // Find all external contours
@@ -78,16 +82,15 @@ namespace frc1706 {
             }
 
             // Focus the largets contour
-            cv::minEnclosingCircle(largest_cnt, ball_center_flat, radius);
-            //cv::circle(final, ball_center_flat, radius, color, 3);
-            
-            // D’ = (W x F) / P
-            double distance = (BALL_DIAMETER * FOCAL_LENGTH) / (radius * 2);
-            // angle = atan( (X-cx) / f)
-            // FIXME: Change to object cols
-            double angle = std::atan((final.cols - (final.cols / 2) / FOCAL_LENGTH));
-            
+            cv::minEnclosingCircle(largest_cnt, ball_center, radius);
+
+            //cv::solvePnPRansac(obj_pnts, img_pnts, cam_mtx, dist_coeff, r_vec, t_vec);
+
+            double distance;
+            double angle;
+
             return {
+                {"color", color},
                 {"distance", distance},
                 {"angle", angle}
             };
@@ -142,8 +145,12 @@ namespace frc1706 {
 
 //----------------------------------------------------------------------------------------------
 
-    void BallTracker::_broadcast() {
-        return;
+    void BallTracker::_broadcast(std::map<std::string, double> pose) {
+        try {
+            this->_net_client->sendMessage(this->_net_client->createMessage(pose));
+        } catch(std::exception err) {
+            spdlog::warn(err.what());
+        }
     }
 
 //----------------------------------------------------------------------------------------------
@@ -163,16 +170,17 @@ namespace frc1706 {
             if(enabled) { 
                 cv::Mat next_frame;
                 if(self->_capture_device.read(next_frame)) {
-                    std::cout << "Reading next frame for Ball Tracker: " << self << std::endl;
+                    spdlog::info("Reading next frame from ball tracker");
                     self->_setCurrentFrame(next_frame);
                 } else {
-                    std::cerr << "Unable to read next frame\n"; 
+                    spdlog::critical("Unable to read next frame");
                 }
             } else { 
                 break; 
             }
 
             // TODO: Make these run in parallel
+            // TODO: maybe use a lambda
             cv::Mat processed_blue(self->process(blue));
             cv::Mat processed_red(self->process(red));
 
@@ -181,17 +189,16 @@ namespace frc1706 {
             cv::imshow("threshed red", processed_blue);
 #endif // DISPLAY 
 
-            std::map<std::string, double> final_blue(self->track(processed_blue));
-            std::map<std::string, double> final_red(self->track(processed_red));
-            
-/*             // This isn't right, how can I add both red and blue tracking to the same image?
-            if (!std::get<0>(final_blue).empty())
-                self->_setCurrentFrame(std::get<0>(final_blue), true); 
-            if (!std::get<0>(final_blue).empty())
-                self->_setCurrentFrame(std::get<0>(final_blue), true);
- */
-            std::cout << "Distance to object: " << final_blue["distance"] << std::endl;
-            std::cout << "Angle to object: " << final_blue["angle"] << std::endl;
+            std::map<std::string, double> final_blue(self->track(processed_blue, Color::blue));
+            std::map<std::string, double> final_red(self->track(processed_red, Color::red));
+
+            spdlog::debug("Blue angle: {}", final_blue["angle"]);
+            spdlog::debug("Blue distance: {}", final_blue["distance"]);
+            spdlog::debug("Red angle: {}", final_red["angle"]);
+            spdlog::debug("Red distance: {}", final_red["distance"]);
+
+            self->_broadcast(final_blue);
+            self->_broadcast(final_red);
         }
     }
 };
