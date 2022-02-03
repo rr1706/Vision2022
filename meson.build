@@ -1,22 +1,26 @@
+# Project info
 project(
-    'Vision2022',
+    'Vision',
     'cpp',
-    version: '0.2.0',
-    default_options: ['cpp_std=c++17', 'warning_level=3', 'layout=flat']
+    version: '2022.2.0',
+    default_options: ['cpp_std=c++17', 'warning_level=3', 'layout=flat', 'unity=on']
 )
 
+# Variables
 team_number = '1706'
-frc_year = '2022'
 user = 'frc'
 host = 'jetson'
 
-# Dependancies
-opencv = dependency('opencv4')
-msgpack = dependency('msgpack')
-threads = dependency('threads')
-spdlog = subproject('spdlog').get_variable('spdlog_dep')
+# Pull dependencies from conanfile
+run_command('conan', 'install', meson.source_root(), '-if', meson.build_root(), '--build missing')
 
-# Create the main executable to be deployed
+# Dependancies
+spdlog = dependency('spdlog')
+opencv = dependency('opencv4')
+threads = dependency('threads')
+msgpack = dependency('msgpack')
+
+# Create the executable to be deployed
 vision = executable(
     'vision',
     [
@@ -37,18 +41,15 @@ test('basic', vision)
 run_target('deploy',
     command: [
         'python', 
-        'resources/meson/scripts/deploy.py', 
+        'resources/tasks/deploy.py', 
         team_number, 
-        frc_year, 
-        user, 
-        host
+        user, host
     ]
 )
 run_target('runTest', 
     command: [
         'python', 
-        'resources/meson/scripts/test.py', 
+        'resources/tasks/deploy.py', 
         team_number, 
-        frc_year
     ]
 )

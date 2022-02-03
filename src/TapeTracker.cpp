@@ -2,6 +2,7 @@
 #include "frc1706/RoboRIOClient.hpp"
 
 #include "opencv2/core.hpp"
+#include "opencv2/core/base.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/videoio.hpp"
 #include "opencv2/imgproc.hpp"
@@ -36,7 +37,8 @@ namespace frc1706 {
         cv::cvtColor(this->getCurrentFrame(), gray, cv::COLOR_BGR2GRAY);
 
         // Thresh the image with the range provided 
-        //cv::inRange(gray, range.first, range.second, threshed);
+        //cv::threshold(gray, threshed, 0, 255, cv::THRESH_BINARY);
+        cv::adaptiveThreshold(gray, threshed, 255, cv::BORDER_ISOLATED, cv::THRESH_BINARY, 3, 0);
         
         // "Open" the threshed image(erode followed by dilate)
         cv::morphologyEx(threshed, threshed, cv::MORPH_OPEN, this->_kernel);
@@ -57,8 +59,8 @@ namespace frc1706 {
             //https://github.com/rr1706/vision2013/blob/master/source/extrinsic.cpp
             //cv::solvePnPRansac(obj_pnts, img_pnts, cam_mtx, dist_coeff, r_vec, t_vec);
 
-            double distance;
-            double angle;
+            double distance = 0;
+            double angle = 0;
 
             return {
                 {"color", 3},

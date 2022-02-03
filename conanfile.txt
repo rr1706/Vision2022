@@ -1,13 +1,26 @@
 [requires]
 opencv/4.5.3
-msgpack/3.3.0
+spdlog/1.9.3
+msgpack-cxx/4.0.3
 
 [generators]
 pkg_config
 
 [options]
+opencv:dnn=False
+#opencv:neon=False
+opencv:with_png=False
+opencv:with_gtk=False
+opencv:with_ade=False
+opencv:with_v4l=True
+opencv:with_webp=False
+opencv:with_tiff=False
+opencv:with_quirc=False
+opencv:with_ffmpeg=False
+opencv:with_openexr=False
+opencv:with_jpeg2000=False
 
 [imports]
-lib, *.so -> ../ # Copies all so files from packages lib folder to my "bin" folder
-bin, *.dll -> ../ # Copies all dll files from packages bin folder to my "bin" folder
-lib, *.dylib* -> ../ # Copies all dylib files from packages lib folder to my "bin" folder
+lib, *.so -> ../meson-out
+bin, *.dll -> ../meson-out
+lib, *.dylib* -> ../meson-out

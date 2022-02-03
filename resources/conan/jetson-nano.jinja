@@ -1,0 +1,21 @@
+host = aarch64-linux-gnu
+toolchain = /usr/$host
+
+[settings]
+os=Linux
+arch=armv8
+compiler=gcc
+compiler.version=7.3
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+CHOST=$host
+AR=$host-ar
+AS=$host-as
+RANLIB=$host-ranlib
+CC=$host-gcc
+CXX=$host-g++
+STRIP=$host-strip
+RC=$host-windres
