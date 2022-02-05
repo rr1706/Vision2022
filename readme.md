@@ -1,6 +1,8 @@
 # Vision 2022
 Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
+Looking for a lighter serialization method
+
 ## Setup guide
 `apt install build-essential python3-pip cmake pkg-config-aarch64-linux-gnu`
 - ### Native 
@@ -15,6 +17,7 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
 ## Resources
 - [Jetson nano cross compiler toolchain](https://developer.nvidia.com/embedded/dlc/l4t-gcc-7-3-1-toolchain-64-bit-32-1)
+- [Custom images for Jetson nano](https://pythops.com/post/create-your-own-image-for-jetson-nano-board)
 - [What is FIRST?](https://www.firstinspires.org/)
 
 ### Coding Conventions

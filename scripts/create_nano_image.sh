@@ -1,5 +1,10 @@
 #!/bin/sh
 
+export JETSON_NANO_BOARD=jetson-nano
+export JETSON_NANO_REVISION=200 # 300 = B01, 200 = A02
+export JETSON_ROOTFS_DIR=/path/to/rootfs
+export JETSON_BUILD_DIR=/path/to/build_dir
+
 # sudo access without password
 cp /etc/sudoers /etc/sudoers.old
 echo "frc ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

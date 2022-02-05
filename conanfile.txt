@@ -1,26 +1,24 @@
 [requires]
+ffmpeg/4.4
 opencv/4.5.3
-spdlog/1.9.3
+spdlog/1.9.2
 msgpack-cxx/4.0.3
 
 [generators]
 pkg_config
 
 [options]
-opencv:dnn=False
-#opencv:neon=False
-opencv:with_png=False
-opencv:with_gtk=False
-opencv:with_ade=False
-opencv:with_v4l=True
-opencv:with_webp=False
-opencv:with_tiff=False
-opencv:with_quirc=False
-opencv:with_ffmpeg=False
-opencv:with_openexr=False
-opencv:with_jpeg2000=False
+opencv:with_jpeg=libjpeg
+opencv:with_ffmpeg=True
+opencv:with_eigen=True
+opencv:parallel=openmp
+opencv:contrib=True
+
+ffmpeg:with_zlib=True
+ffmpeg:with_openjpeg=True
+ffmpeg:with_zeromq=False
 
 [imports]
-lib, *.so -> ../meson-out
-bin, *.dll -> ../meson-out
-lib, *.dylib* -> ../meson-out
+lib, *.so -> ../
+bin, *.dll -> ../
+lib, *.dylib* -> ../

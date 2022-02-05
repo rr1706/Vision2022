@@ -9,7 +9,14 @@ compiler.version=7.3
 compiler.libcxx=libstdc++11
 build_type=Release
 
+[options]
+opencv:with_cuda=True
+opencv:with_cublas=True
+opencv:with_cufft=True
+opencv:with_cudnn=True
+
 [env]
+PKG_CONFIG_PATH=builddir/conan
 CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
 CHOST=$host
 AR=$host-ar

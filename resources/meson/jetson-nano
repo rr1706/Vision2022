@@ -27,5 +27,6 @@ libdir = '/usr/lib/' + arch
 
 [properties]
 root = '/usr/' + arch
+pkg_config_libdir = 'builddir/conan'
 skip_sanity_check = true
 
