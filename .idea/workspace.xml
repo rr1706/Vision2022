@@ -5,24 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b66d0772-db58-4e04-b354-be741688a43c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/ColorSensor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/TapeTracker.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv-455.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/deploy/autorun/install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/autorun/install.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/deploy/data/clocks.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/clocks.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/deploy/services/clocks.service" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services/clocks.service" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/deploy/services/vision.service" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services/vision.service" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/AsyncPipeline.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BallTracker.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/RobotClient.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" afterDir="false" />
+    </list>
+    <list id="1e498146-0280-4e9f-a827-88d037edc442" name="Changes by rr170" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -120,7 +114,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+    <configuration name="MainKt" type="JetRunConfigurationType" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="frc.vision.MainKt" />
       <module name="Vision2022.main" />
       <method v="2">
@@ -145,11 +139,6 @@
       <item itemvalue="Gradle.run" />
       <item itemvalue="Kotlin.MainKt" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Kotlin.MainKt" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -167,6 +156,9 @@
       <workItem from="1644034918856" duration="19000" />
       <workItem from="1644037783464" duration="2497000" />
       <workItem from="1644072127926" duration="4137000" />
+      <workItem from="1644078696413" duration="2231000" />
+      <workItem from="1644080944018" duration="2774000" />
+      <workItem from="1644085267390" duration="130000" />
     </task>
     <servers />
   </component>
@@ -186,21 +178,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt</url>
-          <line>21</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt</url>
-          <line>25</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

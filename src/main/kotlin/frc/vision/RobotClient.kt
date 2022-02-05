@@ -1,4 +1,7 @@
 package frc.vision
 
-class RobotClient {
+class RobotClient (CANID: Int = 255) {
+    fun init(){
+
+    }
 }

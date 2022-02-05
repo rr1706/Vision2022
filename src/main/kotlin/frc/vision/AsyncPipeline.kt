@@ -15,5 +15,5 @@ interface AsyncPipeline {
         }
     }
 
-    suspend fun run() {}
+    fun run(): Deferred<Int>
 }
