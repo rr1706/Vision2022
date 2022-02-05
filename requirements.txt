@@ -1,9 +1,0 @@
-opencv-python
-opencv-contrib-python
-paramiko
-ansible
-numpy
-conan
-meson
-ninja
-scp
