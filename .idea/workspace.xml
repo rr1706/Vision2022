@@ -5,41 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b66d0772-db58-4e04-b354-be741688a43c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/AsyncPipeline.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/BallTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/RobotClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/tasks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/compile_commands.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/conanfile.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meson.build" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/conan/jetson-nano.jinja" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/deploy/autorun/install.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/deploy/data/clocks.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/deploy/services/clocks.service" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/deploy/services/vision.service" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/meson/jetson-nano" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tasks/deploy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tasks/run_tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BallTracker.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ColorSensor.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RoboRIOClient.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TapeTracker.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/include/frc1706/BallTracker.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/include/frc1706/ColorSensor.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/include/frc1706/RoboRIOClient.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/include/frc1706/TapeTracker.hpp" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/ColorSensor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/TapeTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/deploy/autorun/install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/autorun/install.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/deploy/data/clocks.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/clocks.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/deploy/services/clocks.service" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services/clocks.service" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/deploy/services/vision.service" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services/vision.service" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/AsyncPipeline.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BallTracker.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/RobotClient.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +44,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -80,7 +71,13 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Gradle.run">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/vision" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Kotlin.MainKt">
     <configuration name="build" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -107,7 +104,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" value="--debug --stacktrace" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -122,6 +119,13 @@
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
+    </configuration>
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="frc.vision.MainKt" />
+      <module name="Vision2022.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Vision2022-tmp" />
@@ -139,7 +143,13 @@
     <list>
       <item itemvalue="Gradle.build" />
       <item itemvalue="Gradle.run" />
+      <item itemvalue="Kotlin.MainKt" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -153,6 +163,10 @@
       <workItem from="1644028887713" duration="1877000" />
       <workItem from="1644031304356" duration="1956000" />
       <workItem from="1644033654271" duration="954000" />
+      <workItem from="1644034831934" duration="46000" />
+      <workItem from="1644034918856" duration="19000" />
+      <workItem from="1644037783464" duration="2497000" />
+      <workItem from="1644072127926" duration="4137000" />
     </task>
     <servers />
   </component>
@@ -172,5 +186,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt</url>
+          <line>21</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt</url>
+          <line>25</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

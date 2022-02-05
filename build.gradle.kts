@@ -5,8 +5,8 @@ plugins {
     application
 }
 
-group = "frc.vision"
-version = "0.2.0"
+val group = "frc.vision"
+val version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -22,13 +22,10 @@ dependencies {
 }
 
 application {
-    mainClass.set("MainKt")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    mainClass.set(group + ".MainKt")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
+
