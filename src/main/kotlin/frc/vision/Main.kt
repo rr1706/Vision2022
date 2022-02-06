@@ -4,6 +4,9 @@ import org.opencv.core.*
 import org.opencv.videoio.*
 
 fun main() {
+    // Load native libraries
+    System.loadLibrary("lib"+Core.NATIVE_LIBRARY_NAME+".so")
+
     println("Attempting a connection to the robot")
     val client = RobotClient()
 
@@ -26,8 +29,8 @@ fun main() {
 
     // Loop until esc key is pressed
     while(true) {
-       // ball_cam.streamFrame("Ball Camera", true);
-       // tape_cam.stream("Tape Camera", true);
+        // ball_cam.streamFrame("Ball Camera", true);
+        // tape_cam.stream("Tape Camera", true);
         println("Waiting")
     }
 

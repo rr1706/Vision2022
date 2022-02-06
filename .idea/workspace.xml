@@ -5,18 +5,90 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b66d0772-db58-4e04-b354-be741688a43c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/vendor/opencv-455.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_calib3d.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_calib3d.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_calib3d.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_calib3d.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_core.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_core.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_core.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_core.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_dnn.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_dnn.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_dnn.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_dnn.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_features2d.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_features2d.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_features2d.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_features2d.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_flann.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_flann.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_flann.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_flann.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_gapi.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_gapi.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_gapi.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_gapi.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_highgui.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_highgui.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_highgui.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_highgui.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgcodecs.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgcodecs.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgcodecs.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgcodecs.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgproc.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgproc.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgproc.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_imgproc.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_java455.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_ml.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_ml.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_ml.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_ml.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_objdetect.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_objdetect.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_objdetect.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_objdetect.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_photo.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_photo.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_photo.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_photo.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_stitching.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_stitching.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_stitching.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_stitching.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_ts.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_video.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_video.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_video.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_video.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_videoio.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_videoio.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_videoio.so.4.5.5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/shared/x64/libopencv_videoio.so.405" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_calib3d.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_core.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_dnn.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_features2d.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_flann.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_gapi.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_highgui.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_imgcodecs.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_imgproc.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_ml.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_objdetect.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_photo.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_stitching.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_ts.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_video.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/opencv/static/x64/libopencv_videoio.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/AsyncPipeline.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/BallTracker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/opencv-455.jar" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/opencv/opencv-455.jar" afterDir="false" />
     </list>
-    <list id="1e498146-0280-4e9f-a827-88d037edc442" name="Changes by rr170" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/vision/RobotClient.kt" afterDir="false" />
-    </list>
+    <list id="1e498146-0280-4e9f-a827-88d037edc442" name="Changes by rr170" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +143,7 @@
       <recent name="$PROJECT_DIR$/src/main/kotlin/frc/vision" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.MainKt">
+  <component name="RunManager" selected="Gradle.run">
     <configuration name="build" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -159,6 +231,10 @@
       <workItem from="1644078696413" duration="2231000" />
       <workItem from="1644080944018" duration="2774000" />
       <workItem from="1644085267390" duration="130000" />
+      <workItem from="1644085969812" duration="2005000" />
+      <workItem from="1644088021944" duration="4919000" />
+      <workItem from="1644103857990" duration="708000" />
+      <workItem from="1644106868651" duration="3461000" />
     </task>
     <servers />
   </component>
