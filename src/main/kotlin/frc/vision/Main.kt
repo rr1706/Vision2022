@@ -5,7 +5,7 @@ import org.opencv.videoio.*
 
 fun main() {
     // Load native libraries
-    System.loadLibrary("lib"+Core.NATIVE_LIBRARY_NAME+".so")
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
 
     println("Attempting a connection to the robot")
     val client = RobotClient()
