@@ -2,12 +2,12 @@
 #include "frc1706/BallTracker.hpp"
 #include "frc1706/TapeTracker.hpp"
 
-#include "opencv2/videoio.hpp"
 #include "spdlog/common.h"
 #include "spdlog/spdlog.h"
 
 #include "opencv2/core.hpp"
 #include "opencv2/highgui.hpp"
+#include "opencv2/videoio.hpp"
 
 #include <vector>
 

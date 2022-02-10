@@ -1,0 +1,2 @@
+[properties]
+pkg_config_libdir = 'builddir/conan'

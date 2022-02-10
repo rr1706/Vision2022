@@ -1,24 +1,59 @@
 [requires]
 ffmpeg/4.4
+grpc/1.43.0
 opencv/4.5.3
 spdlog/1.9.2
-msgpack-cxx/4.0.3
 
 [generators]
 pkg_config
 
 [options]
-opencv:with_jpeg=libjpeg
-opencv:with_ffmpeg=True
-opencv:with_eigen=True
-opencv:parallel=openmp
-opencv:contrib=True
-
-ffmpeg:with_zlib=True
-ffmpeg:with_openjpeg=True
+ffmpeg:with_libiconv=False
+ffmpeg:with_openjpeg=False
 ffmpeg:with_zeromq=False
+ffmpeg:with_ssl=False
+ffmpeg:with_libalsa=False
+ffmpeg:with_pulse=False
+ffmpeg:with_vaapi=False
+ffmpeg:with_vdpau=False
 
-[imports]
-lib, *.so -> ../
-bin, *.dll -> ../
-lib, *.dylib* -> ../
+grpc:codegen=True
+grpc:csharp_ext=False
+grpc:csharp_plugin=True
+grpc:cpp_plugin=True
+grpc:node_plugin=False
+grpc:objective_c_plugin=False
+grpc:php_plugin=False
+grpc:python_plugin=False
+grpc:ruby_plugin=False
+grpc:secure=False
+
+opencv:parallel=openmp
+opencv:contrib=False
+opencv:contrib_freetype=False
+opencv:contrib_sfm=False
+opencv:with_ade=False
+opencv:with_jpeg=libjpeg
+opencv:with_png=False
+opencv:with_tiff=False
+opencv:with_jpeg2000=False
+opencv:with_openexr=False
+opencv:with_eigen=True
+opencv:with_gtk=False
+opencv:with_webp=False
+opencv:with_quirc=False
+opencv:with_cuda=False
+opencv:with_cublas=False
+opencv:with_cufft=False
+opencv:with_cudnn=False
+opencv:with_v4l=True
+opencv:with_ffmpeg=True
+opencv:with_imgcodec_hdr=False
+opencv:with_imgcodec_pfm=False
+opencv:with_imgcodec_pxm=False
+opencv:with_imgcodec_sunraster=False
+opencv:dnn=False
+opencv:dnn_cuda=False
+opencv:cpu_baseline=None
+opencv:cpu_dispatch=None
+opencv:nonfree=False

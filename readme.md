@@ -1,18 +1,16 @@
 # Vision 2022
 Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 
-Looking for a lighter serialization method
-
 ## Setup guide
-`apt install build-essential python3-pip cmake pkg-config-aarch64-linux-gnu`
+`apt install -y build-essential python3-pip cmake pkg-config-aarch64-linux-gnu`
 - ### Native 
     1. `pip install -r requirements.txt` ensure pip bin directory is added to path
-    2. `meson builddir/`
+    2. `meson builddir/ --native-file resources/meson/default`
     3. `meson compile -C builddir/` re-run this command to recompile
 - ### Jetson Nano
     1. `pip install -r requirements.txt` ensure pip bin directory is added to path
-    2. `meson builddir/ --buildtype release --cross-file resources/meson/jetson-nano.ini`
-    3. `meson compile -C builddir/` re-run this command to recompile
+    2. `meson builddir/ --cross-file resources/meson/jetson-nano.ini --buildtype release`
+    3. `meson compile -C builddir/`
     4. `meson compile deploy -C builddir/` To deploy if you're connected to the nano
 
 ## Resources
@@ -26,12 +24,12 @@ Looking for a lighter serialization method
         - example: `sources/include/rr1706/utils/`
     - Files and classes should be in PascalCase
         - example: `RoboRIOClient.cpp`
-    - Variables should be in snake_case 
-        - example: `double camera_offset;`
+    - Variables should be in camelCase 
+        - example: `double cameraOffset;`
     - Functions and methods should be in camelCase 
         - example: `void sendMessage();`
     - Private variables should be prefixed with `_`
         - example: `void _sendMessage();`
     - Private function should be prefixed with `_`
-        - example: `double _camera_offset;`
+        - example: `double _cameraOffset;`
     - Lines shouldn't extend past 120 columns
