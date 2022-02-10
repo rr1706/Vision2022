@@ -18,6 +18,7 @@ Looking for a lighter serialization method
 ## Resources
 - [Jetson nano cross compiler toolchain](https://developer.nvidia.com/embedded/dlc/l4t-gcc-7-3-1-toolchain-64-bit-32-1)
 - [Custom images for Jetson nano](https://pythops.com/post/create-your-own-image-for-jetson-nano-board)
+- [Yocto](https://medium.com/techbeatly/baking-custom-linux-images-for-embedded-devices-using-yocto-925b3b225c54)
 - [What is FIRST?](https://www.firstinspires.org/)
 
 ### Coding Conventions
