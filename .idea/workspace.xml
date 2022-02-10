@@ -5,47 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b66d0772-db58-4e04-b354-be741688a43c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinScripting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153053.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153058.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153101.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153103.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153106.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153108.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153112.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153118.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153123.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153126.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153129.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153131.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153134.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153136.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/assets/img/chessboard/2022-02-01-153137.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/AsyncPipeline.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/BallTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/ColorSensor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/RobotClient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/bin/main/frc/vision/TapeTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/notebooks/BallCalib.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/notebooks/OpenCVBasics.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/notebooks/TapeCalib.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/scripts/calibrate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/scripts/create_nano_image.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/AsyncPipeline.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/BallTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/ColorSensor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/RobotClient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/kotlin/frc/vision/TapeTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/resources/autorun/install.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vision/src/resources/services/vision.service" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
@@ -285,7 +244,7 @@
       <workItem from="1644358098969" duration="6000" />
       <workItem from="1644359647823" duration="8885000" />
       <workItem from="1644443151578" duration="1596000" />
-      <workItem from="1644447123376" duration="5015000" />
+      <workItem from="1644447123376" duration="5268000" />
     </task>
     <servers />
   </component>
