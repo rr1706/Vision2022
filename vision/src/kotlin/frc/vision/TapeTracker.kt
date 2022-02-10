@@ -1,4 +1,4 @@
 package frc.vision
 
-class ColorSensor {
+class TapeTracker {
 }

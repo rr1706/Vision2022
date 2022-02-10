@@ -14,7 +14,7 @@ objp[:, :2] = np.mgrid[0:7, 0:6].T.reshape(-1, 2)
 objpoints = []  # 3d point in real world space
 imgpoints = []  # 2d points in image plane.
 
-images = glob.glob("../resources/img/chessboard/*.jpg")
+images = glob.glob("../assets/img/chessboard/*.jpg")
 
 
 for fname in images:
@@ -42,7 +42,7 @@ ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(
     objpoints, imgpoints, gray.shape[::-1], None, None
 )
 
-print(f"Camera Matrix: {mtx}")
-print(f"Distortion Coeffecients: {dist}")
-print(f"Rotation Vectors: {rvecs}")
-print(f"Translation Vectors: {tvecs}")
+print(f"Camera Matrix: \n {mtx}")
+print(f"Distortion Coefficients: \n {dist}")
+#print(f"Rotation Vectors: {rvecs}")
+#print(f"Translation Vectors: {tvecs}")
