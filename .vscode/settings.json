@@ -1,4 +1,0 @@
-{
-    "mesonbuild.configureOnOpen": true,
-    "python.formatting.provider": "black"
-}
