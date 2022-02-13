@@ -5,9 +5,13 @@ Rachet Rockers vision solution for FRC season 2022 "Rapid React"
 `apt install -y build-essential python3-pip cmake`
 - ### Native 
     1. `pip install -r requirements.txt` ensure pip bin directory is added to path
+    2. `cmake -G Ninja -S . -B builddir/`
+    3. `cmake --build builddir/ --parallel`
 - ### Jetson Nano
-    1. `pip install -r requirements.txt` ensure pip bin directory is added to path
-
+    1. `pip install -r requirements.txt` ensure pip bin directory is added to patdownload h
+    2. `cmake -G Ninja -S . -B builddir/ -DCMAKE_TOOLCHAIN_FILE=resources/cmake/nano.cmake`
+    3. `cmake --build builddir/ --parallel`
+    4. `cmake --build builddir --target deploy`
 ## Resources
 - [Jetson nano cross compiler toolchain](https://developer.nvidia.com/embedded/dlc/l4t-gcc-7-3-1-toolchain-64-bit-32-1)
 - [Custom images for Jetson nano](https://pythops.com/post/create-your-own-image-for-jetson-nano-board)

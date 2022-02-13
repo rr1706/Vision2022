@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+//option java_multiple_files = true;
+option java_package = "frc.robot.utils.messages";
+option java_outer_classname = "Messages";
+
+package frc.vision;
+
+service Robot {
+    rpc Connect(ConnectRequest) returns (ConnectReply) {}
+    rpc BallTracker(BallRequest) returns (BallReply) {}
+    //rpc RingTracker(RingRequest) returns (RingReply) {}
+    //rpc Sensors(SensorRequest) returns (SensorReply) {}
+}
+
+message ConnectRequest {
+    Type type = 1;
+    optional Location location = 2;
+
+    enum Type {
+        BallTracker = 0;
+        ColorSensor = 1;
+        RingTracker = 2;
+    }
+
+    enum Location {
+        Internal = 0;
+        IntakeFront = 1;
+        IntakeBack = 2;
+        Shooter = 3; 
+    }
+}
+message ConnectReply {
+    TeamColor color = 1;
+
+    enum TeamColor {
+        BLUE = 0;
+        RED = 1;
+    }    
+}
+
+message BallRequest {
+    optional float velocity = 1;
+}
+message BallReply {
+    float distance = 1;
+    float angle = 2;
+}
+
+/*
+message RingRequest {
+
+}
+message RingReply {
+
+}
+
+message SensorRequest {
+
+}
+message SensorReply {
+
+}
+*/
