@@ -1,17 +1,12 @@
-#include "frc1706/RoboRIOClient.hpp"
-#include "frc1706/BallTracker.hpp"
-#include "frc1706/TapeTracker.hpp"
-
-#include "opencv2/videoio.hpp"
+#include "RobotClient.hpp"
+#include "trackers/BallTracker.hpp"
+#include "trackers/TapeTracker.hpp"
+#include "sensors/ColorSensor.hpp"
 #include "spdlog/common.h"
 #include "spdlog/spdlog.h"
-
 #include "opencv2/core.hpp"
-#include "opencv2/highgui.hpp"
-
+#include "opencv2/videoio.hpp"
 #include <vector>
-
-using namespace frc1706;
 
 int main() {
     // Change log pattern
@@ -19,7 +14,7 @@ int main() {
     spdlog::set_level(spdlog::level::debug);
 
     spdlog::info("Attempting a connection to the robot");
-    RoboRIOClient client("127.0.0.1", 1706);
+    RobotClient client("");
     
     /**
      * Create a cv::VideoCaptureProperties list to store the parameters of
@@ -33,28 +28,26 @@ int main() {
         cv::CAP_PROP_FRAME_WIDTH, 480,
         cv::CAP_PROP_FRAME_HEIGHT, 640
     };
- 
-    spdlog::info("Creating trackers");
-    BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_FFMPEG, ball_cam_props), client);
-    TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_FFMPEG, tape_cam_props), client);
 
-    spdlog::info("Running trackers");
+    spdlog::info("Creating sensors");
+    //sensors::ColorSensor color_one();
+
+    spdlog::info("Creating trackers");
+    trackers::BallTracker ball_cam(cv::VideoCapture(0, cv::CAP_FFMPEG, ball_cam_props), client);
+    //trackers::TapeTracker tape_cam(cv::VideoCapture(1, cv::CAP_FFMPEG, tape_cam_props), client);
+
+    spdlog::info("Running sensors and trackers");
+    //color_one.run()
     ball_cam.run();
-    tape_cam.run();
+    //tape_cam.run();
 
     // Loop until esc key is pressed 
+    spdlog::info("Starting stream");
     while(true) {
-        try {
-            ball_cam.show("Ball Camera", true);
-            tape_cam.show("", true);
-        } catch(const cv::Exception &err) {
-            spdlog::warn(err.what());
-            return EXIT_FAILURE;
-        }
-        
-        char esc = cv::waitKey(33);
-        if(esc == 27) { break; }
+        client.imstream("cam1", ball_cam.getCurrentFrame());
+        //imstream(tape_cam.getCurrentFrame());
     }
+    
     spdlog::info("Exiting");
     return EXIT_SUCCESS; 
 }

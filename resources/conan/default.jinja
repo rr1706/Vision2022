@@ -1,0 +1,7 @@
+include(default)
+
+[env]
+CONAN_RUN_TEST=False
+CONAN_CMAKE_GENERATOR=Ninja
+CONAN_CPU_COUNT={{os.cpu_count()}}
+PKG_CONFIG_PATH=builddir/conan

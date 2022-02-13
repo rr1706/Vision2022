@@ -15,7 +15,9 @@
 #include <mutex>
 
 namespace frc1706 {
-
+    // https://docs.opencv.org/3.4/d9/d61/tutorial_py_morphological_ops.html
+    const inline static cv::Mat _kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+  
     TapeTracker::TapeTracker(const cv::VideoCapture &cap, RoboRIOClient &client) :
         _capture_device(cap), _net_client(&client) {}
  
@@ -87,7 +89,6 @@ namespace frc1706 {
     void TapeTracker::show(const std::string &win_name, bool show_tracking) {
         // If frame not empty display it
         if(!this->getCurrentFrame().empty()) {
-            cv::imshow(win_name, this->getCurrentFrame());
         }
     }
 
@@ -141,10 +142,6 @@ namespace frc1706 {
             }
 
             cv::Mat processed(self->process());
-
-#ifdef DISPLAY 
-            cv::imshow("threshed tape", processed);
-#endif // DISPLAY 
 
             std::map<std::string, double> final(self->track(processed));
 
