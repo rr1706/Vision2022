@@ -13,9 +13,30 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/lib)
 
+# For WPILIB
+set(BUILD_SHARED_LIBS OFF)
+set(BUILD_GMOCK OFF)
+set(INSTALL_GTEST OFF)
+set(WITH_CSCORE ON)
+set(WITH_EXAMPLES OFF)
+set(WITH_GUI OFF)
+set(WITH_JAVA OFF)
+set(WITH_OLD_COMMANDS OFF)
+set(WITH_SIMULATION_MODULES OFF)
+set(WITH_TESTS OFF)
+set(WITH_WPILIB ON)
+set(WITH_WPIMATH ON)
+
 # Define meta data from CMake project
 cmake_minimum_required(VERSION 3.18)
-project(Vision VERSION 0.2.0)
+project(Vision VERSION ${frc_year}.2.0)
+
+include(FetchContent)
+FetchContent_Declare(allwpilib
+    GIT_REPOSITORY https://github.com/wpilibsuite/allwpilib/
+    GIT_TAG main #v${frc_year}.3.1
+)
+FetchContent_MakeAvailable(allwpilib)
 
 # Source dependencies from Conan
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/conan)
@@ -28,14 +49,10 @@ execute_process(
 )
 
 # Add dependencies to project
-find_package(gRPC REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(OpenCV REQUIRED)
-find_package(httplib REQUIRED)
-find_package(Protobuf REQUIRED)
 
 # Include projects
-add_subdirectory(src/messages)
 add_subdirectory(src/vision)
 
 # Custom task

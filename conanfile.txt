@@ -1,9 +1,7 @@
 [requires]
-grpc/1.43.0
 opencv/4.5.3
 spdlog/1.9.2
 libgpiod/1.6.3
-cpp-httplib/0.10.1
 
 [generators]
 cmake_find_package
@@ -11,17 +9,6 @@ cmake_find_package
 [options]
 libgpiod:enable_tools=False
 libgpiod:enable_bindings_cxx=True
-cpp-httplib:with_openssl=False
-grpc:codegen=True
-grpc:cpp_plugin=True
-grpc:secure=False
-grpc:csharp_ext=False
-grpc:php_plugin=False
-grpc:node_plugin=False
-grpc:ruby_plugin=False
-grpc:csharp_plugin=False
-grpc:python_plugin=False
-grpc:objective_c_plugin=False
 opencv:with_jpeg=libjpeg
 opencv:with_v4l=True
 opencv:with_gtk=False
@@ -32,5 +19,4 @@ opencv:with_tiff=False
 opencv:with_webp=False
 opencv:with_quirc=False
 opencv:with_openexr=False
-opencv:with_jpeg2000=False
-c-ares:tools=False
+kpencv:with_jpeg2000=False
