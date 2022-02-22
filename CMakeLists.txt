@@ -9,8 +9,8 @@ set(conan_profile "resources/conan/default.jinja")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/lib)
 
 # For WPILIB
@@ -62,5 +62,5 @@ add_custom_target(deploy
 )
 add_custom_target(run
     COMMENT "Runs the primary vision application"
-    COMMAND ${CMAKE_BINARY_DIR}/bin/vision
+    COMMAND ${CMAKE_BINARY_DIR}/vision
 )

@@ -1,5 +1,6 @@
 # Output and cache directores
 builddir/
+build/
 .clangd/
 .cache/
 

@@ -1,6 +1,8 @@
 # Create the executable to be deployed
+file(GLOB SRCS ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
+file(GLOB HDRS ${CMAKE_CURRENT_LIST_DIR}/*.hpp)
 add_executable(vision 
-    src/Main.cpp
+    ${SRCS} ${HDRS}
 )
 target_include_directories(vision PRIVATE 
     include

@@ -1,0 +1,6 @@
+{
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/builddir/compile_commands.json",
+    "files.associations": {
+        "vector": "cpp"
+    },
+}
